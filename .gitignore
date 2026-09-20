@@ -25,3 +25,5 @@ dist
 
 # QA artifacts
 .zverify/
+.vercel
+.env*

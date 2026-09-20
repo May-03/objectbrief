@@ -40,9 +40,7 @@ export const FORMS = {
   },
 };
 
-export const SOCIAL_LINKS = [
-  { href: "/rss.xml", label: "RSS feed", icon: "rss" },
-  { href: `mailto:${CONTACT.email}`, label: "Email", icon: "mail" },
+export const SOCIAL_LINKS = [  { href: `mailto:${CONTACT.email}`, label: "Email", icon: "mail" },
 ];
 
 export const authors = [
