@@ -64,6 +64,17 @@ const ogImageUrl = absoluteUrl(ogImage);
       crossorigin
     />
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <script
+      is:inline
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-KZNTGFR7FF"
+    ></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-KZNTGFR7FF');
+    </script>
     {
       jsonLd && (
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
