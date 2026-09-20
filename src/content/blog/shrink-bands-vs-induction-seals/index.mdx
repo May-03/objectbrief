@@ -12,6 +12,9 @@ thumbnailAlt: "Two bottles on a light background: one carrying an external neck 
 featured: false
 affiliateDisclosure: true
 ---
+import AffiliateProductCard from "../../../components/affiliate/ProductRecommendation.astro";
+import AffiliateEndCta from "../../../components/affiliate/AffiliateEndCta.astro";
+
 
 > **Quick answer.** Shrink bands and induction seals solve different packaging problems. A **shrink band** sits outside the package and shows whether the cap or neck area has been disturbed. An **induction seal** bonds a foil-based liner directly to the bottle or jar mouth, creating an inner barrier that must be peeled or broken before the product can be accessed.
 
@@ -131,17 +134,45 @@ Use the job the package must perform as the decision rule.
 Where the decision is between the two external formats, the [shrink bands vs shrink sleeves comparison](/blog/shrink-bands-vs-shrink-sleeves) covers neck-band versus body-sleeve coverage for the same closure question.
 
 ## Current Alibaba Sourcing Options
+The paths below match the sealing-format decision from this guide: an external neck band when you need visible tamper evidence, or an inner induction liner (loose or integrated in a cap) when the seal must sit inside the closure.
 
-**Affiliate disclosure:** the links below are Alibaba affiliate links. Object Brief may earn a commission if a purchase is completed through them. They are organized by sourcing role, not by commission rate or supplier ranking. Confirm dimensions, film, perforation, MOQ, and current availability in the quote and physical sample before production.
 
-| Sourcing role | Current listing snapshot | Affiliate link |
-| --- | --- | --- |
-| External neck band | previously screened low-MOQ perforated shrink-band option for bottle/jar tamper-evident trials. Recheck the live listing before publication. | [Check current Alibaba offer &rarr;](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983) |
-| Custom induction liner | customizable induction seal liner; current Alibaba page states MOQ 1,000 pieces, customizable diameter, and 1&ndash;5 sample pieces. Intended container/material compatibility must be confirmed before order. | [Check current Alibaba offer &rarr;](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600695519353) |
-| Cap + induction-liner path | cap/closure listing with heat-induction liner for common cosmetic/food bottle sizes; current Alibaba snapshot shows MOQ 500. Verify liner construction and exact container compatibility. | [Check current Alibaba offer &rarr;](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=62498146139) |
+<AffiliateProductCard
+  title="Customized Printing Colors Perforated Heat Shrink Bands for Bottle Necks & Jars"
+  label="Visible tamper evidence"
+  description="A previously screened low-MOQ perforated shrink-band option for bottle/jar tamper-evident trials."
+  features={JSON.parse('["Best for: tamper-evidence trials (approx. 100 pc MOQ)", "Format: perforated external neck band", "MOQ / price: recheck the live listing before ordering"]')}
+  moq="From ~$0.10/pc at low MOQ (approx. 100 pc)"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
 
-**How to use these options:** treat them as three different sourcing paths mapped to the packaging roles above, not as a ranking. Start with the format that matches the package job, request samples on the actual bottle or jar, verify the induction-liner and cap compatibility in writing, then compare suppliers against the same specification.
 
+<AffiliateProductCard
+  title="Customized 35/38mm Induction Seal Liners for Glass Bottle Caps & Jars"
+  label="Inner seal path"
+  description="A customizable induction seal liner — the Alibaba page states MOQ 1,000 pieces, customizable diameter, and 1–5 sample pieces."
+  features={JSON.parse('["Best for: inner seals with custom diameters", "Specs: 35/38mm and other custom sizes; MOQ 1,000 pc, samples available", "Confirm: intended container/material compatibility before order"]')}
+  moq="MOQ 1,000 pc (1–5 sample pieces)"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600695519353"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
+
+
+<AffiliateProductCard
+  title="Plastic Screw Caps with Food-Grade PE/PET Heat-Induction Seal Liners (20–32mm)"
+  label="Integrated closure"
+  description="A cap/closure listing with a heat-induction liner for common cosmetic/food bottle sizes — the path where the liner arrives already integrated in the cap."
+  features={JSON.parse('["Best for: buying cap + liner as one closure", "Specs: food-grade PE/PET liners, 20–32mm sizes; MOQ shown: 500 pc", "Confirm: liner construction and exact container compatibility"]')}
+  moq="MOQ shown: 500 pc"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=62498146139"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
+
+**How to use these options:** pick the format that matches where the seal must sit — visible outside the closure, or inside it. Container and liner material compatibility must be confirmed before ordering either path.
 ## Frequently Asked Questions
 
 ### Is a shrink band the same as an induction seal?
@@ -168,3 +199,11 @@ If the product only needs visible cap-and-neck tamper evidence, a shrink band is
 
 - 21 CFR &sect; 211.132 — Tamper-evident packaging requirements for over-the-counter (OTC) human drug products. [Full text](https://www.law.cornell.edu/cfr/text/21/211.132)
 - Evans, S. Temperature transfer due to induction sealing. Rochester Institute of Technology thesis. [Repository record](https://repository.rit.edu/theses/627/)
+
+
+<AffiliateEndCta
+  prompt="Looking for a sealing supplier?"
+  note="Compare current specifications, MOQ, supplier terms and shipping options before ordering."
+  url="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983"
+  cta="Check current Alibaba listing"
+/>

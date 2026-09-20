@@ -12,6 +12,9 @@ thumbnailAlt: "Bottles with label sleeves in a manufacturing context, illustrati
 featured: false
 affiliateDisclosure: true
 ---
+import AffiliateProductCard from "../../../components/affiliate/ProductRecommendation.astro";
+import AffiliateEndCta from "../../../components/affiliate/AffiliateEndCta.astro";
+
 
 > **Quick answer.** Choose a **shrink band** when the package already has a satisfactory body label and the remaining job is to show visible interference at the cap or closure. Choose a **partial or full-body shrink sleeve** when the label itself must conform to the container, carry 360-degree graphics, cover a difficult shape, or combine decoration with a removable tamper-evident section.
 
@@ -116,17 +119,45 @@ Use the pre-order sample as a process qualification step. The goal is not simply
 Once these points are fixed, commercial comparison becomes meaningful. Compare current suppliers against the same specification rather than comparing nominal unit prices for different materials, coverage, printing, tolerances, or quantities.
 
 ## Current Alibaba Sourcing Options
+The three sourcing paths below match the format decision from the previous section — a neck band when the body label is already handled, and a full-body sleeve when the band needs to carry graphics or a tamper feature.
 
-**Affiliate disclosure:** the links below are Alibaba affiliate links. Object Brief may earn a commission if a purchase is completed through them. They are organized by sourcing role, not by commission rate or supplier ranking. Confirm dimensions, film, perforation, MOQ, and current availability in the quote and physical sample before production.
 
-| Sourcing role | Current listing snapshot | Affiliate link |
-| --- | --- | --- |
-| Neck band / small-batch tamper evidence | perforated neck-band listing, used when the body label already works and the main remaining job is closure tamper evidence. Previously screened as a low-MOQ trial option; recheck the live listing before publication. | [Check current Alibaba offer &rarr;](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983) |
-| Full-body sleeve / 360&deg; graphics | printed full-body shrink-sleeve listing for broader container coverage and branding. Current screening showed an MOQ around 500 pieces; confirm live material, print specification, artwork requirements, and MOQ. | [Check current Alibaba offer &rarr;](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601577910598) |
-| Full-body sleeve + perforated tamper feature | full-body shrink-sleeve listing with a perforated tear-line concept, relevant when the sleeve also carries a removable tamper section. Current screening showed an MOQ around 1,000 pieces; verify the final perforation design and sample behaviour. | [Check current Alibaba offer &rarr;](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601692598027) |
+<AffiliateProductCard
+  title="Customized Printing Colors Perforated Heat Shrink Bands for Bottle Necks & Jars"
+  label="Recommended for small batches"
+  description="A perforated neck-band listing for bottles and jars — the right path when the body label already works and the remaining job is closure tamper evidence."
+  features={JSON.parse('["Best for: small-batch tamper-evidence trials (approx. 100 pc MOQ)", "Format: perforated PVC neck band, custom print available", "MOQ / price: check the current listing before ordering"]')}
+  moq="From ~$0.10/pc at low MOQ (approx. 100 pc)"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
+
+
+<AffiliateProductCard
+  title="Custom-Print PVC/PET Full-Body Shrink-Sleeve Labels (360° Graphics)"
+  label="For broader coverage"
+  description="A printed full-body shrink-sleeve listing for containers that need branding and coverage beyond the neck."
+  features={JSON.parse('["Best for: full-container graphics and branding", "Format: custom-print PVC/PET shrink sleeve", "MOQ / price: approx. 500 pc MOQ at screening; confirm live material, print spec, artwork, and MOQ"]')}
+  moq="From ~$0.04/pc (approx. 500 pc)"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601577910598"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
+
+
+<AffiliateProductCard
+  title="Full-Body Shrink Sleeves with Perforated Tear Line (PET/PVC Beverage Labels)"
+  label="Sleeve with tamper section"
+  description="A full-body shrink-sleeve listing with a perforated tear-line concept, relevant when the sleeve also carries a removable tamper section."
+  features={JSON.parse('["Best for: combining 360° graphics with an opening feature", "Format: PET/PVC beverage shrink sleeve, perforated tear line", "MOQ / price: approx. 1,000 pc MOQ at screening; verify the final perforation design and sample behaviour"]')}
+  moq="From ~$0.15/pc (approx. 1,000 pc)"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601692598027"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
 
 **How to use these options:** treat them as three different procurement paths, not as a ranking. Start with the format that matches the packaging job defined above, request samples on the actual bottle and closure, then compare suppliers against the same specification.
-
 ## Frequently Asked Questions
 
 ### Is a shrink band the same as a shrink sleeve?
@@ -149,3 +180,11 @@ Do not treat a shrink band or decorative sleeve as a leak seal unless the packag
 
 - Chen, X., Kroell, N., Althaus, M., et al. (2023). Enabling mechanical recycling of plastic bottles with shrink sleeves through near-infrared spectroscopy and machine learning algorithms. *Resources, Conservation &amp; Recycling*, 188, 106719. [DOI: 10.1016/j.resconrec.2022.106719](https://doi.org/10.1016/j.resconrec.2022.106719)
 - Szusta, J., Tomczyk, A., &amp; Karaka&#351;, &Ouml;. (2018). A new method for estimating the clamping force of shrink sleeve labels. *Materials*, 11(12), 2544. [DOI: 10.3390/ma11122544](https://doi.org/10.3390/ma11122544)
+
+
+<AffiliateEndCta
+  prompt="Looking for a shrink band supplier?"
+  note="Compare current specifications, MOQ, supplier terms and shipping options before ordering."
+  url="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983"
+  cta="Check current Alibaba listing"
+/>

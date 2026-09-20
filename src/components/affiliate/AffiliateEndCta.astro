@@ -1,0 +1,22 @@
+---
+interface Props {
+  prompt: string;
+  note?: string;
+  url: string;
+  cta: string;
+}
+
+const { prompt, note, url, cta } = Astro.props;
+---
+
+<aside class="affiliate-end-cta mt-12 border-t border-border pt-5">
+  <p class="font-serif text-base font-medium">{prompt}</p>
+  {note && <p class="mt-1 text-sm text-muted-foreground">{note}</p>}
+  <a
+    href={url}
+    target="_blank"
+    rel="sponsored noopener noreferrer"
+    data-placement="article-end"
+    class="mt-2 inline-block text-sm text-primary underline decoration-primary/40 underline-offset-4 hover:decoration-primary"
+  >{cta} <span aria-hidden="true">&rarr;</span></a>
+</aside>

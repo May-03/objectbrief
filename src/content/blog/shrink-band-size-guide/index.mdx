@@ -12,6 +12,9 @@ thumbnailAlt: "Close-up of amber glass bottles and jars on a shelf, similar in s
 featured: false
 affiliateDisclosure: true
 ---
+import AffiliateProductCard from "../../../components/affiliate/ProductRecommendation.astro";
+import AffiliateEndCta from "../../../components/affiliate/AffiliateEndCta.astro";
+
 
 import measureImg from "./measure.jpg";
 import appliedImg from "./applied.jpg";
@@ -144,19 +147,45 @@ For custom or bulk sourcing, also request the supplier's **tolerance**, **materi
 | Lead time and dimensional tolerance | Especially for custom orders |
 
 ## Current Alibaba Sourcing Options
+The three stages below match the sizing workflow from this guide: test at 100 pc, run small-batch at 1,000 pc, then scale up with custom sizing only after the size is validated.
 
-**Affiliate disclosure:** the links below are Alibaba affiliate links. Object Brief may earn a commission if a purchase is completed through them. They are organized by sourcing role, not by commission rate or supplier ranking. Confirm dimensions, film, perforation, MOQ, and current availability in the quote and physical sample before production.
 
-Marketplace observations were checked on September 19, 2026. Re-check the live listing for current MOQ, material, dimensions, sample terms, and lead time before ordering.
+<AffiliateProductCard
+  title="Customized Printing Colors Perforated Heat Shrink Bands for Bottle Necks & Jars"
+  label="First testing stage"
+  description="A perforated heat-shrink neck-band option for bottles and jars — the first testing-stage offer."
+  features={JSON.parse('["Best for: validating a measured size (MOQ shown: 100 pc)", "Format: perforated neck band", "Confirm: exact size, material, sample terms, and current MOQ on the live listing"]')}
+  moq="From ~$0.10/pc at low MOQ (approx. 100 pc)"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
 
-| Sourcing stage | Current listing snapshot | Affiliate link |
-| --- | --- | --- |
-| Trial / low-MOQ | MOQ shown: 100 pieces; perforated heat-shrink neck-band option for bottles and jars. Use this as the first testing-stage offer. Confirm exact size, material, sample terms, and current MOQ on the live listing. | [Check current Alibaba offer →](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983) |
-| Small-batch production | MOQ shown: 1,000 pieces; PVC/PET bottle-and-jar neck bands with perforated/printed options. Suitable after the buyer has validated size and wants a modest production run. Confirm exact film, dimensions, and sample terms. | [Check current Alibaba offer →](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600216104427) |
-| Scale-up custom | MOQ shown: 10,000 pieces; custom sizing and logo/graphic options. Kept as a scale-up path rather than a primary small-batch recommendation. Material fields have appeared as PVC and PET/PVC — confirm the exact film in writing. | [Check current Alibaba offer →](https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601101205412) |
 
-Related reading: [shrink bands vs shrink sleeves — which format to choose](/blog/shrink-bands-vs-shrink-sleeves).
+<AffiliateProductCard
+  title="Custom PVC/PET Heat-Shrink Wrap Bands for Bottles & Jars (Printed, Perforated)"
+  label="After size validation"
+  description="PVC/PET bottle-and-jar neck bands with perforated/printed options — suitable once the buyer has validated size and wants a modest production run."
+  features={JSON.parse('["Best for: modest production runs (MOQ shown: 1,000 pc)", "Format: PVC/PET neck bands, perforated/printed options", "Confirm: exact film, dimensions, and sample terms"]')}
+  moq="MOQ shown: 1,000 pc"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600216104427"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
 
+
+<AffiliateProductCard
+  title="Custom PVC/PET Clear Neck Shrink Bands — Custom Sizing & Logo Options (Scale-Up Path)"
+  label="Scale-up path"
+  description="Custom sizing and logo/graphic options — kept as a scale-up path rather than a primary small-batch recommendation."
+  features={JSON.parse('["Best for: scaling after validated sizing (MOQ shown: 10,000 pc)", "Format: custom sizing + logo/graphic printing", "Confirm: material fields have appeared as both PVC and PET/PVC — confirm the exact film in writing"]')}
+  moq="MOQ shown: 10,000 pc"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601101205412"
+  buttonText="Check Price & MOQ on Alibaba"
+/>
+/>
+
+**How to use these options:** buy to your validated stage, not to the biggest MOQ discount. Confirm exact film, dimensions, and sample terms on the live listing before each step up.
 ## Frequently Asked Questions
 
 ### Does a 28-400 neck mean I need a 28 mm shrink band?
@@ -180,3 +209,11 @@ Do not assume they do. Several suppliers state that their shrink bands are not i
 - Shih, W. K. (1994). Shrinkage modeling of polyester shrink film. *Polymer Engineering &amp; Science*, 34(14), 1121–1128. [https://doi.org/10.1002/pen.760341405](https://doi.org/10.1002/pen.760341405)
 - Hong, C. K., Maeng, H., Song, K., &amp; Kaang, S. (2009). Thermal behaviors of heat shrinkable poly(vinyl chloride) film. *Journal of Applied Polymer Science*, 112(2), 886–895. [https://doi.org/10.1002/app.29550](https://doi.org/10.1002/app.29550)
 - Dong, X. G., &amp; Zhou, S. J. (2016). Study on the shrinkable behavior of PETG/PET blending shrink film. *Materials Science Forum*, 863, 116–120. [https://doi.org/10.4028/www.scientific.net/MSF.863.116](https://doi.org/10.4028/www.scientific.net/MSF.863.116)
+
+
+<AffiliateEndCta
+  prompt="Looking for a shrink band supplier?"
+  note="Compare current specifications, MOQ, supplier terms and shipping options before ordering."
+  url="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600874115983"
+  cta="Check current Alibaba listing"
+/>
