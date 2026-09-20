@@ -26,7 +26,7 @@ const iconClass =
           return (
             <a
               href={item.to}
-              class={`text-sm ${active ? activeClass : inactiveClass}`}
+              class={`text-base ${active ? activeClass : inactiveClass}`}
               aria-current={active ? "page" : undefined}
             >
               {item.label}
@@ -91,7 +91,7 @@ const iconClass =
           return (
             <a
               href={item.to}
-              class={`rounded-md px-2 py-2 text-sm hover:bg-muted hover:text-foreground ${active ? "text-foreground" : "text-muted-foreground"}`}
+              class={`rounded-md px-2 py-2 text-base hover:bg-muted hover:text-foreground ${active ? "text-foreground" : "text-muted-foreground"}`}
               aria-current={active ? "page" : undefined}
             >
               {item.label}
