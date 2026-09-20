@@ -37,15 +37,16 @@ export const POST: APIRoute = async ({ request }) => {
 		}
 
 		try {
-			const response = await fetch(`${apiBaseUrl}/v1/contacts`, {
+			const response = await fetch(`${apiBaseUrl}/api/contact`, {
 				method: 'POST',
 				headers: {
 					'X-API-Key': apiKey,
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					email,
-					list_id: listId,
+					key: email,
+					contactStructureId: '6aabad92bcc5301fb756f6f5',
+					lists: [{ _id: listId, action: 'add' }],
 				}),
 			});
 
