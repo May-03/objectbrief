@@ -40,4 +40,20 @@ else
   fail=1
 fi
 
+# affiliate links must carry a productId pinned to the target product
+# strip URLs first: every offer.alibaba.com link checked separately
+alinks="$(grep -oE 'https://offer\.alibaba\.com/[^ )|"]+' "$f" | sed 's/&amp;/\&/g' | sort -u || true)"
+bad=0
+if [ -n "$alinks" ]; then
+  while IFS= read -r link; do
+    if ! echo "$link" | grep -q 'productId=[0-9]\{5,\}'; then
+      echo "FAIL affiliate link missing productId (dead-PLA risk): $link"
+      fail=1
+    fi
+  done <<< "$alinks"
+  [ $fail -eq 0 ] && echo "OK  all affiliate links are productId-pinned"
+else
+  echo "OK  (no affiliate links)"
+fi
+
 exit $fail

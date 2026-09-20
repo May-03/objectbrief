@@ -33,6 +33,19 @@ recommendation tables. The numeric ID may exist ONLY inside the
 Instead of the ID, describe the listing by role: "perforated neck-band listing
 previously screened for small-batch testing…".
 
+## 2b. Affiliate URL must be productId-pinned（affiliate 链接必须带 productId）
+
+Every affiliate link in an article MUST have the form
+`https://offer.alibaba.com/cps/<id>?bm=cps&src=saf&productId=<digits>` and the
+`productId` value MUST equal the product ID in the corresponding raw Alibaba URL.
+
+FORBIDDEN: bare short links without `productId` (e.g. `https://offer.alibaba.com/cps/kl8bbo8f?bm=cps&src=saf`).
+These resolve to PLA/Ready-to-ship listings that can die server-side
+(`parameter is invalid[biz is empty]`) while the productId-pinned link for the same
+product stays alive. Incident 2026-09-20: the "Cap + induction-liner path" row in
+`shrink-bands-vs-induction-seals` used a bare short link to a dead PLA page and had to
+be replaced with the pinned form `…&productId=62498146139`.
+
 ## 3. How to verify mechanically（每篇上传前必跑）
 
 ```bash
