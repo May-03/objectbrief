@@ -56,4 +56,39 @@ else
   echo "OK  (no affiliate links)"
 fi
 
+# built-output gate: rendered HTML must give every CPS link rel="sponsored",
+# target="_blank", and noopener. Run against dist/client/blog/<slug>/index.html
+# after `pnpm build` (or pnpm dlx vercel build). Usage: pass a second arg
+# pointing at the dist root, e.g. ./scripts/check-article-policy.sh src/.../index.mdx dist/client
+dist_root="${2:-}"
+if [ -n "$dist_root" ]; then
+  slug="$(basename "$(dirname "$f")")"
+  h="$dist_root/blog/$slug/index.html"
+  if [ -f "$h" ]; then
+    total="$(grep -o 'href="https://offer\.alibaba\.com/cps/' "$h" | wc -l | tr -d ' ')"
+    if [ "$total" -gt 0 ]; then
+      # per-tag check: every CPS anchor must carry sponsored/_blank/noopener.
+      # (page-wide counting is wrong — share buttons also use target="_blank".)
+      tags="$(grep -o '<a href="https://offer\.alibaba\.com/cps/[^>]*>' "$h")"
+      badtags=0
+      while IFS= read -r tag; do
+        [ -z "$tag" ] && continue
+        echo "$tag" | grep -q 'rel="[^"]*sponsored[^"]*"' || badtags=$((badtags+1))
+        echo "$tag" | grep -q 'target="_blank"' || badtags=$((badtags+1))
+        echo "$tag" | grep -q 'noopener' || badtags=$((badtags+1))
+      done <<< "$tags"
+      if [ "$badtags" -eq 0 ]; then
+        echo "OK  dist: $total CPS link(s) all rel=sponsored + target=_blank + noopener"
+      else
+        echo "FAIL dist gate: $badtags attribute miss(es) across $total CPS tags in $h"
+        fail=1
+      fi
+    else
+      echo "OK  dist: no CPS links in built page"
+    fi
+  else
+    echo "SKIP dist gate: $h not built"
+  fi
+fi
+
 exit $fail
