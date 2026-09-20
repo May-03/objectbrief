@@ -129,26 +129,6 @@ const popular = await popularPosts();
   <section class="mx-auto max-w-6xl px-5 py-14" data-home-latest>
     <div class="flex flex-wrap items-center justify-between gap-4">
       <h2 class="font-serif text-2xl font-semibold">Latest guides</h2>
-      <div class="flex flex-wrap gap-2">
-        <button
-          type="button"
-          data-home-filter=""
-          class="rounded-full border px-3 py-1 text-xs transition-colors border-foreground bg-foreground text-background"
-        >
-          All
-        </button>
-        {
-          categories.map((category) => (
-            <button
-              type="button"
-              data-home-filter={category.slug}
-              class="rounded-full border px-3 py-1 text-xs transition-colors border-border text-muted-foreground hover:text-foreground"
-            >
-              {category.name}
-            </button>
-          ))
-        }
-      </div>
     </div>
 
     <div data-home-empty class="mt-12 rounded-md border border-dashed border-border py-16 text-center text-muted-foreground" hidden>
@@ -185,33 +165,19 @@ const popular = await popularPosts();
 <script>
   const latest = document.querySelector("[data-home-latest]");
   if (latest) {
-    const buttons = [...latest.querySelectorAll("[data-home-filter]")];
     const cards = [...latest.querySelectorAll("[data-post-card]")];
     const empty = latest.querySelector("[data-home-empty]");
-    const activeClasses = ["border-foreground", "bg-foreground", "text-background"];
-    const inactiveClasses = ["border-border", "text-muted-foreground", "hover:text-foreground"];
-
-    const setActive = (button, active) => {
-      button.classList.toggle(activeClasses[0], active);
-      button.classList.toggle(activeClasses[1], active);
-      button.classList.toggle(activeClasses[2], active);
-      inactiveClasses.forEach((className) => button.classList.toggle(className, !active));
-    };
 
     const filterCards = (category) => {
       let visible = 0;
       cards.forEach((card) => {
-        const match = !category || card.dataset.category === category;
-        const show = match && visible < 6;
+        const show = visible < 6;
         card.hidden = !show;
-        if (match) visible += 1;
+        if (show) visible += 1;
       });
       if (empty) empty.hidden = visible > 0;
-      buttons.forEach((button) => setActive(button, button.dataset.homeFilter === category));
     };
 
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => filterCards(button.dataset.homeFilter || ""));
-    });
+    filterCards("");
   }
 </script>
