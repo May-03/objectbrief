@@ -1,0 +1,103 @@
+---
+import Icon from "./Icon.astro";
+---
+
+<div class="my-8 rounded-md border border-border bg-card p-5 sm:p-6" data-shrink-calc>
+  <div class="text-xs uppercase tracking-wider text-muted-foreground">Shrink band size calculator</div>
+  <h3 class="mt-1 font-serif text-xl font-semibold">Estimate a starting lay-flat width</h3>
+  <p class="mt-2 text-sm text-muted-foreground">
+    Enter either the maximum circumference or the maximum outside diameter of the assembled
+    closure and container. The result is an <strong>estimated starting size</strong> — always
+    verify against the supplier's published fit range and test a sample.
+  </p>
+
+  <div class="mt-5 grid gap-4 sm:grid-cols-2">
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Maximum circumference (mm)</span>
+      <input
+        data-calc-circ
+        type="number"
+        inputmode="decimal"
+        min="0"
+        step="any"
+        placeholder="e.g. 100"
+        class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2 font-mono text-base outline-none focus:border-primary"
+      />
+    </label>
+    <label class="block">
+      <span class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Maximum outside diameter (mm)</span>
+      <input
+        data-calc-diam
+        type="number"
+        inputmode="decimal"
+        min="0"
+        step="any"
+        placeholder="e.g. 33"
+        class="mt-2 w-full rounded-md border border-input bg-background px-3 py-2 font-mono text-base outline-none focus:border-primary"
+      />
+    </label>
+  </div>
+
+  <dl class="mt-5 grid gap-3 text-sm sm:grid-cols-2">
+    <div class="rounded-md border border-border bg-muted/40 p-4">
+      <dt class="text-xs uppercase tracking-wider text-muted-foreground">Theoretical lay-flat</dt>
+      <dd class="mt-1 font-mono text-2xl font-semibold">
+        <span data-calc-layflat>&ndash;</span><span class="text-base text-muted-foreground"> mm</span>
+      </dd>
+      <dd class="mt-1 text-xs text-muted-foreground">circumference &divide; 2, from geometry alone</dd>
+    </div>
+    <div class="rounded-md border border-border bg-muted/40 p-4">
+      <dt class="text-xs uppercase tracking-wider text-muted-foreground">Estimated starting size</dt>
+      <dd class="mt-1 font-mono text-2xl font-semibold">
+        <span data-calc-start>&ndash;</span><span class="text-base text-muted-foreground"> mm</span>
+      </dd>
+      <dd class="mt-1 text-xs text-muted-foreground">&larr; add 2 mm starting allowance (TricorBraun method)</dd>
+    </div>
+  </dl>
+
+  <p class="mt-4 flex items-start gap-2 rounded-sm border border-primary/25 bg-primary/5 px-3 py-2.5 text-xs leading-relaxed text-muted-foreground">
+    <Icon name="message" class="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
+    <span>
+      This is a starting estimate, not a fit guarantee. Confirm the supplier's stated fit range for
+      your measured diameter, check the <strong>band height</strong> separately, and test a sample on
+      the actual container — especially if the closure has a flange, curve, or unusual contour.
+    </span>
+  </p>
+</div>
+
+<script>
+  const calc = document.querySelector("[data-shrink-calc]");
+  const circInput = calc?.querySelector("[data-calc-circ]");
+  const diamInput = calc?.querySelector("[data-calc-diam]");
+  const layflatOut = calc?.querySelector("[data-calc-layflat]");
+  const startOut = calc?.querySelector("[data-calc-start]");
+
+  const trim = (num) =>
+    Number.isFinite(num)
+      ? (Math.round(num * 10) / 10).toLocaleString("en-US", { maximumFractionDigits: 1 })
+      : "–";
+
+  const update = () => {
+    if (!calc) return;
+    let circumference = Number.parseFloat(circInput?.value);
+    if (Number.isFinite(circumference) && circumference >= 0 && !diamInput?.value) {
+      const flat = circumference / 2;
+      layflatOut.textContent = trim(flat);
+      startOut.textContent = trim(flat + 2);
+      return;
+    }
+    let diameter = Number.parseFloat(diamInput?.value);
+    if (Number.isFinite(diameter) && diameter >= 0) {
+      const flat = (Math.PI * diameter) / 2;
+      layflatOut.textContent = trim(flat);
+      startOut.textContent = trim(flat + 2);
+      return;
+    }
+    layflatOut.textContent = "–";
+    startOut.textContent = "–";
+  };
+
+  circInput?.addEventListener("input", update);
+  diamInput?.addEventListener("input", update);
+  update();
+</script>

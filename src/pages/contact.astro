@@ -21,9 +21,9 @@ const contactEnctype = hasContactEndpoint ? FORMS.contact.enctype : undefined;
 
     <header class="mt-6">
       <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">Contact</div>
-      <h1 class="mt-2 font-serif text-5xl font-semibold">Say hello.</h1>
+      <h1 class="mt-2 font-serif text-5xl font-semibold">Get in touch.</h1>
       <p class="mt-4 max-w-xl text-muted-foreground">
-        Notes, corrections, pitches, or just a thought. We read everything and reply to most of it.
+        Questions about a guide, a supplier to recommend, or something we got wrong. We read everything and reply to most of it.
       </p>
     </header>
 
@@ -56,13 +56,12 @@ const contactEnctype = hasContactEndpoint ? FORMS.contact.enctype : undefined;
           <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Elsewhere</div>
           <ul class="mt-3 space-y-3 text-sm">
             <li><a href={`mailto:${CONTACT.email}`} class="flex items-center gap-2 hover:text-primary"><Icon name="mail" class="h-3.5 w-3.5" /> {CONTACT.email}</a></li>
-            <li><a href={CONTACT.socialUrl} class="flex items-center gap-2 hover:text-primary"><Icon name="twitter" class="h-3.5 w-3.5" /> {CONTACT.socialHandle}</a></li>
             <li><a href="/rss.xml" class="flex items-center gap-2 hover:text-primary"><Icon name="rss" class="h-3.5 w-3.5" /> RSS feed</a></li>
           </ul>
         </div>
         <div>
           <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Pitches</div>
-          <p class="mt-2 text-sm text-muted-foreground">We commission essays from new contributors a few times a year. Send a short paragraph about what you'd like to write.</p>
+          <p class="mt-2 text-sm text-muted-foreground">We commission guides and comparisons from new contributors a few times a year. Send a short paragraph about the product category or sourcing question you'd like to cover.</p>
         </div>
       </aside>
     </div>

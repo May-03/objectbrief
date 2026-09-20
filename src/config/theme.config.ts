@@ -1,13 +1,13 @@
 const siteUrl = (
   import.meta.env.SITE_URL ||
   import.meta.env.PUBLIC_SITE_URL ||
-  "https://quietpages-eta.vercel.app"
+  "https://objectbrief.com"
 ).replace(/\/$/, "");
 
 export const SITE = {
-  name: "Quiet Pages",
+  name: "Object Brief",
   description:
-    "An independent magazine on writing, design, and the slow web. Published occasionally, read closely.",
+    "Practical sourcing intelligence for product buyers — supplier guides, product comparisons, MOQ breakdowns, and honest Alibaba sourcing advice, written for people who actually order.",
   url: siteUrl,
   locale: "en-US",
   language: "en",
@@ -16,15 +16,15 @@ export const SITE = {
 
 export const NAVIGATION = [
   { to: "/", label: "Home" },
-  { to: "/blog", label: "Writing" },
+  { to: "/blog", label: "Article" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
 
 export const CONTACT = {
-  email: "hello@example.com",
-  socialHandle: "@quietpages",
-  socialUrl: "https://x.com/quietpages",
+  email: "hello@objectbrief.com",
+  socialHandle: "@objectbrief",
+  socialUrl: "https://x.com/objectbrief",
 };
 
 export const FORMS = {
@@ -42,53 +42,44 @@ export const FORMS = {
 
 export const SOCIAL_LINKS = [
   { href: "/rss.xml", label: "RSS feed", icon: "rss" },
-  { href: CONTACT.socialUrl, label: `${SITE.name} on X`, icon: "twitter" },
-  { href: SITE.repositoryUrl, label: `${SITE.name} on GitHub`, icon: "github" },
   { href: `mailto:${CONTACT.email}`, label: "Email", icon: "mail" },
 ];
 
 export const authors = [
   {
-    slug: "elena-march",
-    name: "Elena March",
-    bio: "Writer & editor covering design, craft, and slow technology.",
+    slug: "david-okoro",
+    name: "David Okoro",
+    bio: "Sourcing analyst writing about suppliers, MOQs, and procurement for small businesses.",
     longBio:
-      "Elena March writes about the quiet edges of design and technology. Previously an editor at two small magazines, she now publishes essays and field notes from a desk overlooking the harbour.",
-    avatar: "/avatars/elena-march.svg",
+      "David spent eight years in procurement for a mid-size packaging distributor before starting Object Brief. He writes the guides and sourcing deep-dives — the kind of advice he wishes someone had given him before his first container order.",
+    avatar: "/avatars/david-okoro.svg",
   },
   {
-    slug: "samuel-okafor",
-    name: "Samuel Okafor",
-    bio: "Software engineer with a soft spot for typography and the open web.",
+    slug: "lena-schmidt",
+    name: "Lena Schmidt",
+    bio: "Editor covering product categories, comparisons, and packaging materials.",
     longBio:
-      "Samuel builds tools for writers and reads more than he ships. He believes the best interfaces are the ones you don't notice.",
-    avatar: "/avatars/samuel-okafor.svg",
-  },
-  {
-    slug: "mira-iwasaki",
-    name: "Mira Iwasaki",
-    bio: "Photographer and essayist based between Kyoto and Lisbon.",
-    longBio:
-      "Mira's work sits at the intersection of place, memory, and the everyday object. Her essays have appeared in a number of small but loved publications.",
-    avatar: "/avatars/mira-iwasaki.svg",
+      "Lena worked as a packaging engineer and, more recently, a freelance product researcher. At Object Brief she tests the products we write about, stresses the comparisons, and keeps the numbers honest.",
+    avatar: "/avatars/lena-schmidt.svg",
   },
 ];
 
 export const categories = [
-  { slug: "essays", name: "Essays" },
-  { slug: "design", name: "Design" },
-  { slug: "engineering", name: "Engineering" },
-  { slug: "field-notes", name: "Field Notes" },
-  { slug: "interviews", name: "Interviews" },
+  { slug: "guides", name: "Guides" },
+  { slug: "products", name: "Products" },
+  { slug: "comparisons", name: "Comparisons" },
+  { slug: "sourcing", name: "Sourcing" },
+  { slug: "packaging", name: "Packaging" },
 ];
 
 export const tags = [
-  { slug: "writing", name: "Writing" },
-  { slug: "typography", name: "Typography" },
-  { slug: "minimalism", name: "Minimalism" },
-  { slug: "tools", name: "Tools" },
-  { slug: "travel", name: "Travel" },
-  { slug: "process", name: "Process" },
-  { slug: "web", name: "Web" },
-  { slug: "books", name: "Books" },
+  { slug: "alibaba", name: "Alibaba" },
+  { slug: "moq", name: "MOQ" },
+  { slug: "packaging", name: "Packaging" },
+  { slug: "materials", name: "Materials" },
+  { slug: "comparisons", name: "Comparisons" },
+  { slug: "certification", name: "Certification" },
+  { slug: "suppliers", name: "Suppliers" },
+  { slug: "customization", name: "Customization" },
+  { slug: "shipping", name: "Shipping" },
 ];

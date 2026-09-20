@@ -1,0 +1,64 @@
+---
+interface Props {
+  name: string;
+  location?: string;
+  years?: string;
+  moq?: string;
+  customization?: string;
+  certifications?: string[];
+  url?: string;
+  note?: string;
+}
+
+const { name, location, years, moq, customization, certifications = [], url, note } = Astro.props;
+---
+
+<div class="my-8 rounded-md border border-border bg-card p-5 sm:p-6">
+  <div class="flex flex-wrap items-baseline justify-between gap-2">
+    <h3 class="font-serif text-lg font-semibold">{name}</h3>
+    {url && (
+      <a href={url} target="_blank" rel="sponsored noopener noreferrer" class="inline-flex items-center gap-1 border-b border-primary pb-0.5 text-xs font-medium text-primary">
+        Alibaba profile <span aria-hidden="true">&rarr;</span>
+      </a>
+    )}
+  </div>
+  <dl class="mt-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
+    {location && (
+      <div class="flex justify-between gap-4 border-b border-border/60 py-1.5">
+        <dt class="text-muted-foreground">Location</dt>
+        <dd class="text-right">{location}</dd>
+      </div>
+    )}
+    {years && (
+      <div class="flex justify-between gap-4 border-b border-border/60 py-1.5">
+        <dt class="text-muted-foreground">Years in business</dt>
+        <dd class="text-right">{years}</dd>
+      </div>
+    )}
+    {moq && (
+      <div class="flex justify-between gap-4 border-b border-border/60 py-1.5">
+        <dt class="text-muted-foreground">MOQ</dt>
+        <dd class="text-right">{moq}</dd>
+      </div>
+    )}
+    {customization && (
+      <div class="flex justify-between gap-4 border-b border-border/60 py-1.5">
+        <dt class="text-muted-foreground">Customization</dt>
+        <dd class="text-right">{customization}</dd>
+      </div>
+    )}
+  </dl>
+  {
+    certifications.length > 0 && (
+      <div class="mt-3">
+        <div class="text-xs uppercase tracking-wider text-muted-foreground">Certifications</div>
+        <div class="mt-1.5 flex flex-wrap gap-1.5">
+          {certifications.map((cert) => (
+            <span class="rounded-full border border-border px-2.5 py-0.5 text-xs">{cert}</span>
+          ))}
+        </div>
+      </div>
+    )
+  }
+  {note && <p class="mt-3 text-xs text-muted-foreground">{note}</p>}
+</div>

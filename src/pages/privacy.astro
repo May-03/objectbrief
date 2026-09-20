@@ -1,0 +1,64 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { SITE } from "../lib/blog-data.js";
+import { CONTACT } from "../config/theme.config.ts";
+---
+
+<BaseLayout
+  title={`Privacy policy - ${SITE.name}`}
+  description={`How ${SITE.name} handles data: no trackers, no analytics scripts, no cookies — and what little we do store, we keep locally in your browser.`}
+  canonical="/privacy"
+>
+  <div class="mx-auto max-w-3xl px-5 py-12">
+    <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Privacy policy" }]} />
+
+    <header class="mt-6">
+      <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">Privacy</div>
+      <h1 class="mt-2 font-serif text-5xl font-semibold leading-[1.05]">Privacy policy</h1>
+    </header>
+
+    <div class="prose-article mt-10">
+      <p>
+        This policy is short because the answer is short: {SITE.name} is a static website with
+        no trackers, no analytics scripts, and no advertising cookies. We do not sell data —
+        there is nothing to sell.
+      </p>
+
+      <h2 id="what-we-collect">What we collect</h2>
+      <ul>
+        <li><strong>Nothing, by default.</strong> Pages are served as static HTML and read like any document.</li>
+        <li>
+          <strong>Theme preference.</strong> If you switch between light and dark mode, the choice is saved
+          in your browser's <em>localStorage</em> under the <code>theme</code> key. It never leaves your device.
+        </li>
+        <li>
+          <strong>Contact form messages.</strong> If you email us through the address on the contact page,
+          we keep that correspondence to reply to it. We never add it to a mailing list.
+        </li>
+      </ul>
+
+      <h2 id="what-we-dont-collect">What we do not collect</h2>
+      <p>
+        We do not use Google Analytics, advertising pixels, fingerprinting, or any third-party
+        tracking scripts. There are no cookies used for profiling or advertising on this site.
+        Our hosting provider may keep standard server logs (IP address, request time, requested
+        page) for security and reliability; we do not review or enrich those logs for marketing.
+      </p>
+
+      <h2 id="third-party-links">Third-party links</h2>
+      <p>
+        Articles contain affiliate links and references to external marketplaces such as Alibaba.
+        Those destinations have their own privacy policies, and we are not responsible for their
+        practices. We never share your data with them — you choose to visit a linked site yourself.
+      </p>
+
+      <h2 id="changes">Changes to this policy</h2>
+      <p>
+        If the site ever starts collecting more data, this page will be updated first and
+        prominently. You can always contact us at{" "}
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> with questions.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,7 +1,7 @@
 ---
 import Icon from "./Icon.astro";
-import { SITE, categories } from "../lib/blog-data.js";
-import { SOCIAL_LINKS } from "../config/theme.config.ts";
+import { SITE } from "../lib/blog-data.js";
+import { SOCIAL_LINKS, NAVIGATION } from "../config/theme.config.ts";
 
 const { flush = false } = Astro.props;
 ---
@@ -27,10 +27,10 @@ const { flush = false } = Astro.props;
       <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Sections</div>
       <ul class="mt-3 space-y-2 text-sm">
         {
-          categories.slice(0, 5).map((category) => (
+          NAVIGATION.map((item) => (
             <li>
-              <a href={`/categories/${category.slug}`} class="text-foreground/80 hover:text-foreground">
-                {category.name}
+              <a href={item.to} class="text-foreground/80 hover:text-foreground">
+                {item.label}
               </a>
             </li>
           ))
@@ -44,6 +44,8 @@ const { flush = false } = Astro.props;
         <li><a href="/contact" class="hover:text-foreground">Contact</a></li>
         <li><a href="/blog" class="hover:text-foreground">Archive</a></li>
         <li><a href="/rss.xml" class="hover:text-foreground">RSS feed</a></li>
+        <li><a href="/privacy" class="hover:text-foreground">Privacy policy</a></li>
+        <li><a href="/affiliate-disclosure" class="hover:text-foreground">Affiliate disclosure</a></li>
       </ul>
     </div>
   </div>

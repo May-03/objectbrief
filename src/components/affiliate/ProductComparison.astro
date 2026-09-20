@@ -1,0 +1,62 @@
+---
+interface ProductColumn {
+  name: string;
+  bestFor: string;
+  moq: string;
+  keyFeature: string;
+  url?: string;
+}
+
+interface Props {
+  products: ProductColumn[];
+  caption?: string;
+}
+
+const { products, caption } = Astro.props;
+---
+
+<figure class="my-8">
+  <div class="overflow-x-auto rounded-md border border-border">
+    <table class="w-full min-w-[560px] border-collapse text-left text-sm">
+      <thead>
+        <tr class="border-b border-border bg-muted">
+          <th scope="col" class="px-4 py-3 font-medium text-muted-foreground">Product</th>
+          {products.map((product) => (
+            <th scope="col" class="px-4 py-3 font-serif text-base font-semibold">{product.name}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <tr>
+          <th scope="row" class="whitespace-nowrap px-4 py-3 font-medium text-muted-foreground">Best for</th>
+          {products.map((product) => <td class="px-4 py-3">{product.bestFor}</td>)}
+        </tr>
+        <tr>
+          <th scope="row" class="whitespace-nowrap px-4 py-3 font-medium text-muted-foreground">MOQ</th>
+          {products.map((product) => <td class="px-4 py-3">{product.moq}</td>)}
+        </tr>
+        <tr>
+          <th scope="row" class="whitespace-nowrap px-4 py-3 font-medium text-muted-foreground">Key feature</th>
+          {products.map((product) => <td class="px-4 py-3">{product.keyFeature}</td>)}
+        </tr>
+        <tr>
+          <th scope="row" class="whitespace-nowrap px-4 py-3 font-medium text-muted-foreground">Link</th>
+          {products.map((product) => (
+            <td class="px-4 py-3">
+              {
+                product.url ? (
+                  <a href={product.url} target="_blank" rel="sponsored noopener noreferrer" class="inline-flex items-center gap-1 border-b border-primary pb-0.5 text-primary">
+                    View <span aria-hidden="true">&rarr;</span>
+                  </a>
+                ) : (
+                  <span class="text-muted-foreground">Contact supplier</span>
+                )
+              }
+            </td>
+          ))}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  {caption && <figcaption class="mt-3 text-xs text-muted-foreground">{caption}</figcaption>}
+</figure>

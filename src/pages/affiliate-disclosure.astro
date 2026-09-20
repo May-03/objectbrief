@@ -1,0 +1,70 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { SITE } from "../lib/blog-data.js";
+import { CONTACT } from "../config/theme.config.ts";
+---
+
+<BaseLayout
+  title={`Affiliate disclosure - ${SITE.name}`}
+  description={`How affiliate links work on ${SITE.name}: when we may earn a commission, how we keep recommendations honest, and how you can tell when an article contains affiliate links.`}
+  canonical="/affiliate-disclosure"
+>
+  <div class="mx-auto max-w-3xl px-5 py-12">
+    <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Affiliate disclosure" }]} />
+
+    <header class="mt-6">
+      <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">Disclosure</div>
+      <h1 class="mt-2 font-serif text-5xl font-semibold leading-[1.05]">Affiliate disclosure</h1>
+    </header>
+
+    <div class="prose-article mt-10">
+      <p>
+        {SITE.name} is reader-funded through affiliate links. This page explains how that works,
+        and how we keep the arrangement honest.
+      </p>
+
+      <h2 id="how-it-works">How affiliate links work</h2>
+      <p>
+        Some links in our articles point to marketplaces such as Alibaba through an affiliate
+        ("CPS") tracking link. When you click one of those links and complete a purchase, the
+        marketplace pays us a small commission. The price you pay is identical to what you would
+        pay by visiting the marketplace directly &mdash; the commission is paid by the marketplace
+        out of its own margin, never added to your bill.
+      </p>
+
+      <h2 id="when-we-disclose">When we disclose</h2>
+      <ul>
+        <li>
+          Every article that contains an affiliate link shows a short notice at the top of the
+          page, before the first link appears.
+        </li>
+        <li>
+          Product recommendation cards, supplier boxes, and comparison tables mark their "View"
+          links as sponsored in the markup (<code>rel="sponsored"</code>), which search engines
+          understand as disclosure too.
+        </li>
+        <li>
+          We never accept payment for a positive review, a placement in a ranking, or a link in
+          an article.
+        </li>
+      </ul>
+
+      <h2 id="editorial-independence">Editorial independence</h2>
+      <p>
+        Recommendations are written before and independently of any affiliate arrangement. We
+        recommend suppliers and products we believe are right for the use case described, and we
+        publish the negative findings (sagging elements, absent certifications, misleading MOQs)
+        as readily as the positive ones. If an affiliate arrangement changes the recommendation,
+        we do not publish it.
+      </p>
+
+      <h2 id="questions">Questions</h2>
+      <p>
+        If an article ever feels unclear about why something was recommended, or you spot a link
+        that should be marked as sponsored and is not, write to us at{" "}
+        <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> and we will fix it.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

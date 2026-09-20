@@ -1,0 +1,12 @@
+---
+interface Props {
+  note?: string;
+}
+
+const { note } = Astro.props;
+---
+
+<p class="my-6 rounded-sm border border-border bg-muted/50 px-4 py-3 text-xs leading-relaxed text-muted-foreground">
+  {note ??
+    "This article contains affiliate links. If you buy through one of these links, we may earn a small commission at no extra cost to you — it is what keeps the research free. We only recommend suppliers and products we would use ourselves."}
+</p>

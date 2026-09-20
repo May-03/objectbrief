@@ -6,6 +6,7 @@ import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
 import PostCard from "../../components/PostCard.astro";
 import Newsletter from "../../components/Newsletter.astro";
+import AffiliateDisclosure from "../../components/affiliate/AffiliateDisclosure.astro";
 import Icon from "../../components/Icon.astro";
 import {
   SITE,
@@ -164,6 +165,7 @@ const jsonLd = {
     <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_220px]">
       <div class="mx-auto w-full min-w-0 max-w-2xl">
         <div class="prose-article">
+          {post.affiliateDisclosure && <AffiliateDisclosure />}
           <Content />
         </div>
 
