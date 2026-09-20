@@ -1,5 +1,6 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
+import vercel from "@astrojs/vercel";
 import tailwindcss from "@tailwindcss/vite";
 
 const site =
@@ -14,4 +15,6 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+  output: "server",
+  adapter: vercel(),
 });
