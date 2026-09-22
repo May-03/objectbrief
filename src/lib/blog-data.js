@@ -18,12 +18,26 @@ const estimateReadingTime = (text = "") => {
 
 export const imageSrc = (image) => (typeof image === "string" ? image : image?.src);
 
+const searchTextFrom = (entry) => {
+  const body = (entry?.body || "")
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/[#>*`[\](){}|]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  return [entry?.data?.title, entry?.data?.excerpt, body.slice(0, 16000)]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+};
+
 export const normalizePost = (entry) => ({
   slug: entry.id,
   ...entry.data,
   date: isoDate(entry.data.date),
   updated: isoDate(entry.data.updated),
   readingTime: entry.data.readingTime ?? estimateReadingTime(entry.body),
+  searchText: searchTextFrom(entry),
 });
 
 export const posts = async () =>
