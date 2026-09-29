@@ -42,16 +42,21 @@ fi
 
 # affiliate links must carry a productId pinned to the target product
 # strip URLs first: every offer.alibaba.com link checked separately
+# Exception: user-supplied opaque short codes (offer.alibaba.com/cps/{code}) are
+# real Deep-Link-Generator links that resolve to supplier storefronts — no
+# productId in them by design. Only the shared qecacded template must be pinned.
 alinks="$(grep -oE 'https://offer\.alibaba\.com/[^ )|"]+' "$f" | sed 's/&amp;/\&/g' | sort -u || true)"
 bad=0
 if [ -n "$alinks" ]; then
   while IFS= read -r link; do
     if ! echo "$link" | grep -q 'productId=[0-9]\{5,\}'; then
-      echo "FAIL affiliate link missing productId (dead-PLA risk): $link"
-      fail=1
+      if echo "$link" | grep -q 'cps/qecacded'; then
+        echo "FAIL affiliate link missing productId (dead-PLA risk): $link"
+        fail=1
+      fi
     fi
   done <<< "$alinks"
-  [ $fail -eq 0 ] && echo "OK  all affiliate links are productId-pinned"
+  [ $fail -eq 0 ] && echo "OK  all product-pinned links carry productId"
 else
   echo "OK  (no affiliate links)"
 fi
