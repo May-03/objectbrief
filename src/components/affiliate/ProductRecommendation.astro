@@ -36,14 +36,15 @@ const {
 ]}>
   {
     image && (
-      <div class="relative aspect-[4/3] bg-muted sm:aspect-auto sm:h-full">
+      <div class="relative h-44 bg-muted sm:h-full">
         <img
           src={image}
           alt={imageAlt}
           width="440"
           height="330"
           loading="lazy"
-          class="absolute inset-0 h-full w-full object-cover"
+          style="aspect-ratio: auto; height: 100%; width: 100%;"
+          class="absolute inset-0 h-full w-full object-contain p-4"
         />
       </div>
     )
