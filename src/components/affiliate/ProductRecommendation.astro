@@ -1,4 +1,6 @@
 ---
+import { WHITE_BACKGROUND_PRODUCT_IMAGES } from "../../data/productImageFit";
+
 interface Props {
   title: string;
   label?: string;
@@ -30,20 +32,29 @@ const {
 } = Astro.props;
 
 const hasMeta = Boolean(supplier || moq || priceNote);
+
+// The photo sits in a fixed-width column that is as tall as the card. A photo
+// taken in a real workspace crops well to fill that column edge to edge, but a
+// white-background studio shot blows up into an abstract close-up when cropped,
+// so those are letterboxed instead. See src/data/productImageFit.ts.
+const imageFit =
+  image && WHITE_BACKGROUND_PRODUCT_IMAGES.has(image)
+    ? "h-44 w-full object-contain sm:h-full sm:object-contain"
+    : "h-44 w-full object-contain sm:h-full sm:object-cover";
 ---
 
 <div class="my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm">
   <div class="flex flex-col sm:flex-row">
     {
       image && (
-        <div class="flex shrink-0 items-center justify-center bg-muted/30 p-3 sm:w-52 sm:self-start">
+        <div class="flex shrink-0 sm:w-52">
           <img
             src={image}
             alt={imageAlt}
             width="440"
             height="330"
             loading="lazy"
-            class="h-44 w-full rounded-lg object-contain"
+            class={imageFit}
           />
         </div>
       )
