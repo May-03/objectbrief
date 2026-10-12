@@ -28,130 +28,109 @@ const {
   affiliateUrl,
   buttonText = "View on Alibaba",
 } = Astro.props;
+
+const hasMeta = Boolean(supplier || moq || priceNote);
 ---
 
-<div
-  class:list={[
-    "relative isolate my-8 min-h-[20rem] overflow-hidden rounded-md border border-[#d4838a]/40 shadow-sm",
-    image && "text-primary-foreground",
-    !image && "bg-gradient-to-br from-[#fff8f3] via-[#fff1ee] to-[#ffe6d1] text-foreground",
-  ]}
->
-  {
-    image && (
-      <>
-        <img
-          src={image}
-          alt={imageAlt}
-          width="1200"
-          height="800"
-          loading="lazy"
-          class="absolute inset-0 -z-20 h-full w-full object-cover object-center"
-        />
-        <div
-          aria-hidden="true"
-          class="absolute inset-0 -z-10 bg-[#7a4a3a]/25 sm:bg-gradient-to-r sm:from-[#4b2a22]/68 sm:via-[#9d5c4b]/20 sm:to-transparent"
-        />
-      </>
-    )
-  }
-  <div class:list={[
-    "relative z-10 flex min-h-[20rem] flex-col justify-between p-5 sm:min-h-[20rem] sm:p-6",
-    image ? "max-w-3xl sm:max-w-[68%]" : "max-w-3xl",
-  ]}>
-    <div>
-      <div class:list={[
-        "text-xs font-medium uppercase tracking-[0.16em]",
-        image ? "text-primary-foreground/75" : "text-muted-foreground",
-      ]}>{label}</div>
-      <h3 class="mt-2 font-serif text-xl font-semibold leading-snug sm:text-2xl">{title}</h3>
-      {description && (
-        <p class:list={[
-          "mt-3 line-clamp-3 max-w-2xl text-sm leading-5",
-          image ? "text-primary-foreground/85" : "text-muted-foreground",
-        ]}>{description}</p>
-      )}
+<div class="my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm">
+  <div class="flex flex-col sm:flex-row">
+    {
+      image && (
+        <div class="flex shrink-0 items-center justify-center border-b border-border bg-muted/40 p-3 sm:w-52 sm:border-b-0 sm:border-r">
+          <img
+            src={image}
+            alt={imageAlt}
+            width="440"
+            height="330"
+            loading="lazy"
+            class="h-40 w-full rounded-lg object-contain sm:h-44"
+          />
+        </div>
+      )
+    }
+    <div class="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+      <span class="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">{label}</span>
 
-      {bestFor && (
-        <p class="mt-4 line-clamp-2 text-sm leading-5">
-          <span class="font-medium">Best for: </span>
-          <span class:list={[image ? "text-primary-foreground/80" : "text-muted-foreground"]}>{bestFor}</span>
-        </p>
-      )}
+      <h3 class="text-lg font-semibold leading-snug text-foreground sm:text-xl">{title}</h3>
+
+      {description && <p class="text-[15px] leading-6 text-muted-foreground">{description}</p>}
+
+      {
+        bestFor && (
+          <p class="text-[15px] leading-6 text-muted-foreground">
+            <span class="font-medium text-foreground">Best for: </span>
+            {bestFor}
+          </p>
+        )
+      }
 
       {
         features.length > 0 && (
-          <ul class:list={[
-            "mt-4 grid gap-1.5 text-sm leading-5",
-            image ? "text-primary-foreground/85" : "text-muted-foreground",
-          ]}>
+          <ul class="grid gap-1.5 text-sm leading-5 text-muted-foreground">
             {features.map((feature) => (
               <li class="flex items-start gap-2">
-                <span aria-hidden="true" class:list={[
-                  "mt-2 h-1.5 w-1.5 shrink-0 rounded-full",
-                  image ? "bg-primary-foreground/80" : "bg-primary",
-                ]} />
+                <span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
                 {feature}
               </li>
             ))}
           </ul>
         )
       }
-    </div>
 
-    <div>
-      <dl class:list={[
-        "mt-4 grid gap-2 border-t pt-3 text-sm sm:grid-cols-3 sm:gap-3",
-        image ? "border-primary-foreground/25" : "border-card-border/70",
-      ]}>
-      {supplier && (
-        <div>
-          <dt class:list={[
-            "text-xs uppercase tracking-wider",
-            image ? "text-primary-foreground/65" : "text-muted-foreground",
-          ]}>Supplier</dt>
-          <dd>{supplier}</dd>
-        </div>
-      )}
-      {moq && (
-        <div>
-          <dt class:list={[
-            "text-xs uppercase tracking-wider",
-            image ? "text-primary-foreground/65" : "text-muted-foreground",
-          ]}>MOQ</dt>
-          <dd>{moq}</dd>
-        </div>
-      )}
-      {priceNote && (
-        <div>
-          <dt class:list={[
-            "text-xs uppercase tracking-wider",
-            image ? "text-primary-foreground/65" : "text-muted-foreground",
-          ]}>Price</dt>
-          <dd>{priceNote}</dd>
-        </div>
-      )}
-      </dl>
+      <div class="mt-auto space-y-3 border-t border-border pt-4">
+        {
+          hasMeta && (
+            <dl class="grid gap-2 text-sm sm:grid-cols-3 sm:gap-3">
+              {supplier && (
+                <div>
+                  <dt class="text-xs uppercase tracking-wider text-muted-foreground">Supplier</dt>
+                  <dd class="text-foreground">{supplier}</dd>
+                </div>
+              )}
+              {moq && (
+                <div>
+                  <dt class="text-xs uppercase tracking-wider text-muted-foreground">MOQ</dt>
+                  <dd class="text-foreground">{moq}</dd>
+                </div>
+              )}
+              {priceNote && (
+                <div>
+                  <dt class="text-xs uppercase tracking-wider text-muted-foreground">Price</dt>
+                  <dd class="text-foreground">{priceNote}</dd>
+                </div>
+              )}
+            </dl>
+          )
+        }
 
-      <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
-        <span class:list={[
-          "text-xs",
-          image ? "text-primary-foreground/65" : "text-muted-foreground",
-        ]}>Supplier listing · Verify current terms</span>
-        <a
-          href={affiliateUrl}
-          target="_blank"
-          rel="sponsored noopener noreferrer"
-          data-placement="inline-card"
-          class:list={[
-            "inline-flex min-h-10 items-center gap-2 rounded-sm px-4 py-2 text-sm font-medium transition-colors",
-            image
-              ? "bg-card text-foreground hover:bg-card/90"
-              : "bg-[#c4626c] text-white hover:bg-[#aa4f5a]",
-          ]}
-        >
-          {buttonText} <span aria-hidden="true" class="text-base">&rarr;</span>
-        </a>
+        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <span class="text-xs text-muted-foreground">Supplier listing · Verify current terms</span>
+          <a
+            href={affiliateUrl}
+            target="_blank"
+            rel="sponsored noopener noreferrer"
+            data-placement="inline-card"
+            class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold leading-5 text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+          >
+            {buttonText}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M7 7h10v10" />
+              <path d="M7 17 17 7" />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </div>
