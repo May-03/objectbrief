@@ -1,16 +1,16 @@
 /**
  * Product photos whose background is a plain, light surface.
  *
- * The product card shows the photo in a side panel that is as tall as the
- * card (~208x410). Cropping a photo to fill that panel (`object-cover`) reads
- * well for the supplier photos shot in a real workspace, but for a catalogue
- * shot on a plain light background it zooms into the product and cuts its
- * edges off. Those keep `object-contain` so the whole product stays visible.
+ * The card shows the photo in a side column that is as tall as the card. A
+ * photo taken in a real workspace fills that column by cropping
+ * (`object-cover`). A catalogue shot on a plain light background cannot be
+ * cropped that hard without cutting the product's edges off, so it is fitted
+ * whole instead. The column behind it is white, which is the same colour as
+ * the photo's own background, so the fit still reads as one full-height image
+ * with no gap above or below.
  *
  * Classified by sampling the outer 10% ring of each image: at least 70% of those
- * pixels are near-white (luminance > 238). 64 of the 111 images in
- * public/images/products qualify. Regenerate with the script in
- * .workbuddy-ai/memory/ if images are added.
+ * pixels are near-white (luminance > 238). 64 of the 111 images qualify.
  */
 export const WHITE_BACKGROUND_PRODUCT_IMAGES = new Set<string>([
   '/images/products/ali-11000022646016.jpg',

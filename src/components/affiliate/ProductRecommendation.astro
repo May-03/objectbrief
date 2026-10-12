@@ -18,42 +18,43 @@ interface Props {
 
 const {
   title,
-  label = "Recommended Option",
+  label,
   image,
   imageAlt = "",
   description,
-  bestFor,
   features = [],
-  supplier,
   moq,
-  priceNote,
   affiliateUrl,
-  buttonText = "View on Alibaba",
+  buttonText = "Check Product Route on Alibaba",
 } = Astro.props;
 
-const hasMeta = Boolean(supplier || moq || priceNote);
+// The Alibaba listing id is already in the affiliate URL and is the one piece of
+// information a buyer needs to find the exact listing, so surface it first.
+const productId = affiliateUrl.match(/productId=(\d+)/)?.[1];
 
-// The photo column is exactly as tall as the card, so the image has to fill it
-// top to bottom with no gap above or below. A photo taken in a real workspace
-// fills it by cropping (`object-cover`). A catalogue shot on a plain light
-// background cannot be cropped that hard without losing the product, so it is
-// letterboxed on a white panel instead — the panel matches the photo's own
-// background, so the column still reads as one full-height image with no gap.
-// See src/data/productImageFit.ts for which images are which.
-const needsContain = Boolean(image && WHITE_BACKGROUND_PRODUCT_IMAGES.has(image));
-const panelClass = needsContain
-  ? "flex shrink-0 items-center justify-center bg-white sm:w-52"
-  : "flex shrink-0 sm:w-52";
-const imageFit = needsContain
-  ? "h-44 w-full object-contain p-2 sm:h-full"
-  : "h-44 w-full object-contain sm:h-full sm:object-cover";
+const facts = [
+  productId ? `Product ID: ${productId}` : null,
+  label ? `Role: ${label}` : null,
+  ...features,
+  moq ? `MOQ: ${moq}` : null,
+].filter((fact): fact is string => Boolean(fact));
+
+// A workspace photo fills the column by cropping. A catalogue shot on a plain
+// light background would lose the product's edges that way, so it is fitted
+// whole — the column behind it is white, the same as the photo's own
+// background, so there is still no gap above or below. See
+// src/data/productImageFit.ts for which images are which.
+const fitsWhole = Boolean(image && WHITE_BACKGROUND_PRODUCT_IMAGES.has(image));
+const imageFit = fitsWhole
+  ? "h-48 w-full object-contain sm:h-full"
+  : "h-48 w-full object-cover sm:h-full";
 ---
 
 <div class="my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm">
   <div class="flex flex-col sm:flex-row">
     {
       image && (
-        <div class={panelClass}>
+        <div class="flex shrink-0 items-center justify-center bg-white sm:w-64">
           <img
             src={image}
             alt={imageAlt}
@@ -65,89 +66,53 @@ const imageFit = needsContain
         </div>
       )
     }
-    <div class="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-      <span class="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">{label}</span>
-
+    <div class="flex flex-1 flex-col gap-4 p-5 sm:p-6">
       <h3 class="text-lg font-semibold leading-snug text-foreground sm:text-xl">{title}</h3>
 
       {description && <p class="text-[15px] leading-6 text-muted-foreground">{description}</p>}
 
       {
-        bestFor && (
-          <p class="text-[15px] leading-6 text-muted-foreground">
-            <span class="font-medium text-foreground">Best for: </span>
-            {bestFor}
-          </p>
-        )
-      }
-
-      {
-        features.length > 0 && (
-          <ul class="grid gap-1.5 text-sm leading-5 text-muted-foreground">
-            {features.map((feature) => (
-              <li class="flex items-start gap-2">
-                <span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                {feature}
+        facts.length > 0 && (
+          <ul class="grid gap-2 border-t border-border pt-4 text-[15px] leading-6 text-muted-foreground">
+            {facts.map((fact) => (
+              <li class="flex items-start gap-2.5">
+                <span
+                  aria-hidden="true"
+                  class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                />
+                {fact}
               </li>
             ))}
           </ul>
         )
       }
 
-      <div class="mt-auto space-y-3 border-t border-border pt-4">
-        {
-          hasMeta && (
-            <dl class="grid gap-2 text-sm sm:grid-cols-3 sm:gap-3">
-              {supplier && (
-                <div>
-                  <dt class="text-xs uppercase tracking-wider text-muted-foreground">Supplier</dt>
-                  <dd class="text-foreground">{supplier}</dd>
-                </div>
-              )}
-              {moq && (
-                <div>
-                  <dt class="text-xs uppercase tracking-wider text-muted-foreground">MOQ</dt>
-                  <dd class="text-foreground">{moq}</dd>
-                </div>
-              )}
-              {priceNote && (
-                <div>
-                  <dt class="text-xs uppercase tracking-wider text-muted-foreground">Price</dt>
-                  <dd class="text-foreground">{priceNote}</dd>
-                </div>
-              )}
-            </dl>
-          )
-        }
-
-        <div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
-          <span class="text-xs text-muted-foreground">Supplier listing · Verify current terms</span>
-          <a
-            href={affiliateUrl}
-            target="_blank"
-            rel="sponsored noopener noreferrer"
-            data-placement="inline-card"
-            class="inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold leading-5 text-primary-foreground shadow-sm transition-colors hover:bg-primary/90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+      <div class="mt-auto pt-1">
+        <a
+          href={affiliateUrl}
+          target="_blank"
+          rel="sponsored noopener noreferrer"
+          data-placement="inline-card"
+          class="inline-flex min-h-11 items-center gap-2 rounded-lg border border-primary px-5 py-2.5 text-sm font-semibold leading-5 text-primary transition-colors hover:bg-primary/5 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+        >
+          {buttonText}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="h-4 w-4"
+            aria-hidden="true"
           >
-            {buttonText}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="h-4 w-4"
-              aria-hidden="true"
-            >
-              <path d="M7 7h10v10" />
-              <path d="M7 17 17 7" />
-            </svg>
-          </a>
-        </div>
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg>
+        </a>
       </div>
     </div>
   </div>
