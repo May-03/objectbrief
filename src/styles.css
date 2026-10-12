@@ -452,6 +452,22 @@
   & li {
     margin-bottom: 0.5rem;
   }
+  /* The affiliate product card is rendered inside .prose-article, so the
+     descendant rules above would otherwise stack their own margins on top of
+     the card's internal spacing — which read as loose, uneven gaps between the
+     card's title, description, fact list and CTA. The card sets its own
+     rhythm with flex gap, so clear the article's margins inside it. */
+  & .affiliate-product-card p,
+  & .affiliate-product-card ul,
+  & .affiliate-product-card ol,
+  & .affiliate-product-card li,
+  & .affiliate-product-card h3 {
+    margin: 0;
+  }
+  & .affiliate-product-card ul,
+  & .affiliate-product-card ol {
+    padding-left: 0;
+  }
   & code {
     font-family: var(--font-mono);
     font-size: 0.9em;

@@ -50,7 +50,7 @@ const imageFit = fitsWhole
   : "h-48 w-full object-cover sm:h-full";
 ---
 
-<div class="my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm">
+<div class="affiliate-product-card my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm">
   <div class="flex flex-col sm:flex-row">
     {
       image && (
@@ -66,14 +66,14 @@ const imageFit = fitsWhole
         </div>
       )
     }
-    <div class="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+    <div class="flex flex-1 flex-col gap-3 p-5 sm:p-6">
       <h3 class="text-lg font-semibold leading-snug text-foreground sm:text-xl">{title}</h3>
 
       {description && <p class="text-[15px] leading-6 text-muted-foreground">{description}</p>}
 
       {
         facts.length > 0 && (
-          <ul class="grid gap-2 border-t border-border pt-4 text-[15px] leading-6 text-muted-foreground">
+          <ul class="grid gap-1.5 border-t border-border pt-3 text-[15px] leading-6 text-muted-foreground">
             {facts.map((fact) => (
               <li class="flex items-start gap-2.5">
                 <span
