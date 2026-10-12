@@ -36,14 +36,14 @@ const hasMeta = Boolean(supplier || moq || priceNote);
   <div class="flex flex-col sm:flex-row">
     {
       image && (
-        <div class="flex shrink-0 items-center justify-center border-b border-border bg-muted/40 p-3 sm:w-52 sm:border-b-0 sm:border-r">
+        <div class="flex shrink-0 items-center justify-center bg-muted/30 p-3 sm:w-52 sm:self-start">
           <img
             src={image}
             alt={imageAlt}
             width="440"
             height="330"
             loading="lazy"
-            class="h-40 w-full rounded-lg object-contain sm:h-44"
+            class="h-44 w-full rounded-lg object-contain"
           />
         </div>
       )
