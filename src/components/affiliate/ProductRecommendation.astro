@@ -7,7 +7,7 @@ interface Props {
   label?: string;
   image?: string;
   imageAlt?: string;
-  description?: string;
+  description?: string | string[];
   bestFor?: string;
   features?: string[];
   supplier?: string;
@@ -28,6 +28,8 @@ const {
   affiliateUrl,
   buttonText = "Check Product Route on Alibaba",
 } = Astro.props;
+
+const paragraphs = typeof description === "string" ? [description] : (description ?? []);
 
 // The listing id is kept in the affiliate URL only. It used to be printed as the
 // first fact line on every card, which read as a database field rather than
@@ -75,7 +77,13 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
     <div class="flex flex-1 flex-col gap-3 p-5 sm:p-6">
       <h3 class="text-lg font-semibold leading-snug text-foreground sm:text-xl">{title}</h3>
 
-      {description && <p class="text-[15px] leading-6 text-muted-foreground">{description}</p>}
+      {paragraphs.length > 0 && (
+        <div class="flex flex-col gap-2">
+          {paragraphs.map((paragraph) => (
+            <p class="text-[15px] leading-6 text-muted-foreground">{paragraph}</p>
+          ))}
+        </div>
+      )}
 
       {
         facts.length > 0 && (
