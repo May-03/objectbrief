@@ -80,4 +80,6 @@ export const tags = [
   { slug: "suppliers", name: "Suppliers" },
   { slug: "customization", name: "Customization" },
   { slug: "shipping", name: "Shipping" },
+  { slug: "troubleshooting", name: "Troubleshooting" },
+  { slug: "quality", name: "Quality" },
 ];
