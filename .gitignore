@@ -27,3 +27,6 @@ dist
 .zverify/
 .vercel
 .env*
+
+# Local agent workspace (memory, task state) — not part of the site
+.workbuddy-ai/

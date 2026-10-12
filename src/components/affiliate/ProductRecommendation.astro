@@ -30,79 +30,129 @@ const {
 } = Astro.props;
 ---
 
-<div class:list={[
-  "my-8 overflow-hidden rounded-md border-2 border-card-border bg-card",
-  image && "grid sm:grid-cols-[220px_1fr]",
-]}>
+<div
+  class:list={[
+    "relative isolate my-8 min-h-[20rem] overflow-hidden rounded-md border border-[#d4838a]/40 shadow-sm",
+    image && "text-primary-foreground",
+    !image && "bg-gradient-to-br from-[#fff8f3] via-[#fff1ee] to-[#ffe6d1] text-foreground",
+  ]}
+>
   {
     image && (
-      <div class="relative h-44 bg-muted sm:h-full">
+      <>
         <img
           src={image}
           alt={imageAlt}
-          width="440"
-          height="330"
+          width="1200"
+          height="800"
           loading="lazy"
-          style="aspect-ratio: auto; height: 100%; width: 100%;"
-          class="absolute inset-0 h-full w-full object-contain p-4"
+          class="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         />
-      </div>
+        <div
+          aria-hidden="true"
+          class="absolute inset-0 -z-10 bg-[#7a4a3a]/25 sm:bg-gradient-to-r sm:from-[#4b2a22]/68 sm:via-[#9d5c4b]/20 sm:to-transparent"
+        />
+      </>
     )
   }
-  <div class="p-5 sm:p-6">
-    <div class="text-xs uppercase tracking-wider text-muted-foreground">{label}</div>
-    <h3 class="mt-1 font-serif text-xl font-semibold">{title}</h3>
-    {description && <p class="mt-2 text-sm text-muted-foreground">{description}</p>}
+  <div class:list={[
+    "relative z-10 flex min-h-[20rem] flex-col justify-between p-5 sm:min-h-[20rem] sm:p-6",
+    image ? "max-w-3xl sm:max-w-[68%]" : "max-w-3xl",
+  ]}>
+    <div>
+      <div class:list={[
+        "text-xs font-medium uppercase tracking-[0.16em]",
+        image ? "text-primary-foreground/75" : "text-muted-foreground",
+      ]}>{label}</div>
+      <h3 class="mt-2 font-serif text-xl font-semibold leading-snug sm:text-2xl">{title}</h3>
+      {description && (
+        <p class:list={[
+          "mt-3 line-clamp-3 max-w-2xl text-sm leading-5",
+          image ? "text-primary-foreground/85" : "text-muted-foreground",
+        ]}>{description}</p>
+      )}
 
-    {bestFor && (
-      <p class="mt-3 text-sm">
-        <span class="font-medium">Best for: </span>
-        <span class="text-muted-foreground">{bestFor}</span>
-      </p>
-    )}
+      {bestFor && (
+        <p class="mt-4 line-clamp-2 text-sm leading-5">
+          <span class="font-medium">Best for: </span>
+          <span class:list={[image ? "text-primary-foreground/80" : "text-muted-foreground"]}>{bestFor}</span>
+        </p>
+      )}
 
-    {
-      features.length > 0 && (
-        <ul class="mt-3 grid gap-1 text-sm text-muted-foreground">
-          {features.map((feature) => (
-            <li class="flex items-start gap-2">
-              <span aria-hidden="true" class="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary" />
-              {feature}
-            </li>
-          ))}
-        </ul>
-      )
-    }
+      {
+        features.length > 0 && (
+          <ul class:list={[
+            "mt-4 grid gap-1.5 text-sm leading-5",
+            image ? "text-primary-foreground/85" : "text-muted-foreground",
+          ]}>
+            {features.map((feature) => (
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class:list={[
+                  "mt-2 h-1.5 w-1.5 shrink-0 rounded-full",
+                  image ? "bg-primary-foreground/80" : "bg-primary",
+                ]} />
+                {feature}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
 
-    <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+    <div>
+      <dl class:list={[
+        "mt-4 grid gap-2 border-t pt-3 text-sm sm:grid-cols-3 sm:gap-3",
+        image ? "border-primary-foreground/25" : "border-card-border/70",
+      ]}>
       {supplier && (
         <div>
-          <dt class="text-xs uppercase tracking-wider text-muted-foreground">Supplier</dt>
+          <dt class:list={[
+            "text-xs uppercase tracking-wider",
+            image ? "text-primary-foreground/65" : "text-muted-foreground",
+          ]}>Supplier</dt>
           <dd>{supplier}</dd>
         </div>
       )}
       {moq && (
-        <div class:list={[supplier && "col-span-1", !supplier && "col-span-2"]}>
-          <dt class="text-xs uppercase tracking-wider text-muted-foreground">MOQ</dt>
+        <div>
+          <dt class:list={[
+            "text-xs uppercase tracking-wider",
+            image ? "text-primary-foreground/65" : "text-muted-foreground",
+          ]}>MOQ</dt>
           <dd>{moq}</dd>
         </div>
       )}
       {priceNote && (
-        <div class="col-span-2">
-          <dt class="text-xs uppercase tracking-wider text-muted-foreground">Price</dt>
+        <div>
+          <dt class:list={[
+            "text-xs uppercase tracking-wider",
+            image ? "text-primary-foreground/65" : "text-muted-foreground",
+          ]}>Price</dt>
           <dd>{priceNote}</dd>
         </div>
       )}
-    </dl>
+      </dl>
 
-    <a
-      href={affiliateUrl}
-      target="_blank"
-      rel="sponsored noopener noreferrer"
-      data-placement="inline-card"
-      class="mt-4 inline-flex items-center gap-1.5 border-b border-primary pb-0.5 text-sm font-medium text-primary hover:border-primary/50 hover:text-primary/80"
-    >
-      {buttonText} <span aria-hidden="true">&rarr;</span>
-    </a>
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+        <span class:list={[
+          "text-xs",
+          image ? "text-primary-foreground/65" : "text-muted-foreground",
+        ]}>Supplier listing · Verify current terms</span>
+        <a
+          href={affiliateUrl}
+          target="_blank"
+          rel="sponsored noopener noreferrer"
+          data-placement="inline-card"
+          class:list={[
+            "inline-flex min-h-10 items-center gap-2 rounded-sm px-4 py-2 text-sm font-medium transition-colors",
+            image
+              ? "bg-card text-foreground hover:bg-card/90"
+              : "bg-[#c4626c] text-white hover:bg-[#aa4f5a]",
+          ]}
+        >
+          {buttonText} <span aria-hidden="true" class="text-base">&rarr;</span>
+        </a>
+      </div>
+    </div>
   </div>
 </div>
