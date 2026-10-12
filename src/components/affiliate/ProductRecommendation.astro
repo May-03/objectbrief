@@ -1,5 +1,6 @@
 ---
 import { WHITE_BACKGROUND_PRODUCT_IMAGES } from "../../data/productImageFit";
+import { PRODUCT_IMAGE_SIZE } from "../../data/productImageSize";
 
 interface Props {
   title: string;
@@ -28,12 +29,10 @@ const {
   buttonText = "Check Product Route on Alibaba",
 } = Astro.props;
 
-// The Alibaba listing id is already in the affiliate URL and is the one piece of
-// information a buyer needs to find the exact listing, so surface it first.
-const productId = affiliateUrl.match(/productId=(\d+)/)?.[1];
-
+// The listing id is kept in the affiliate URL only. It used to be printed as the
+// first fact line on every card, which read as a database field rather than
+// something a buyer needs — dropped from the visible card entirely.
 const facts = [
-  productId ? `Product ID: ${productId}` : null,
   label ? `Role: ${label}` : null,
   ...features,
   moq ? `MOQ: ${moq}` : null,
@@ -48,6 +47,13 @@ const fitsWhole = Boolean(image && WHITE_BACKGROUND_PRODUCT_IMAGES.has(image));
 const imageFit = fitsWhole
   ? "h-48 w-full object-contain sm:h-full"
   : "h-48 w-full object-cover sm:h-full";
+
+// The image is `w-full` with an automatic height, so the browser works out the
+// placeholder box from these two attributes before the file arrives. Declaring
+// the real dimensions keeps that box the same size as the loaded image —
+// otherwise a 700×700 file declared as 440×330 grows by 94px on load and pushes
+// the rest of the card down. See src/data/productImageSize.ts.
+const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 700];
 ---
 
 <div class="affiliate-product-card my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm">
@@ -58,8 +64,8 @@ const imageFit = fitsWhole
           <img
             src={image}
             alt={imageAlt}
-            width="440"
-            height="330"
+            width={imageWidth}
+            height={imageHeight}
             loading="lazy"
             class={imageFit}
           />
