@@ -75,7 +75,6 @@ export const WHITE_BACKGROUND_PRODUCT_IMAGES = new Set<string>([
   "/images/products/amz-B0048CAKCE.jpg",
   "/images/products/amz-B006LIW9OU.jpg",
   "/images/products/amz-B00GA9P5P0.jpg",
-  "/images/products/amz-B00KF4HYPK.jpg",
   "/images/products/amz-B07DNQN8NM.jpg",
   "/images/products/amz-B07P7DL7BJ.jpg",
   "/images/products/amz-B092JSWZ4V.jpg",

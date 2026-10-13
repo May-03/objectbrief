@@ -47,8 +47,8 @@ const facts = [
 // src/data/productImageFit.ts for which images are which.
 const fitsWhole = Boolean(image && WHITE_BACKGROUND_PRODUCT_IMAGES.has(image));
 const imageFit = fitsWhole
-  ? "h-48 w-full object-contain sm:h-full"
-  : "h-48 w-full object-cover sm:h-full";
+  ? "product-image object-contain"
+  : "product-image object-cover";
 
 // The image is `w-full` with an automatic height, so the browser works out the
 // placeholder box from these two attributes before the file arrives. Declaring
@@ -62,7 +62,7 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
   <div class="flex flex-col sm:flex-row">
     {
       image && (
-        <div class="flex shrink-0 items-center justify-center bg-white sm:w-64">
+        <div class="relative flex shrink-0 items-center justify-center overflow-hidden bg-white sm:w-64">
           <img
             src={image}
             alt={imageAlt}
@@ -131,3 +131,19 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
     </div>
   </div>
 </div>
+
+<style>
+  .product-image {
+    width: 100%;
+    height: 12rem;
+    aspect-ratio: auto;
+  }
+  @media (min-width: 640px) {
+    .product-image {
+      position: absolute;
+      inset: 0;
+      height: 100%;
+      width: 100%;
+    }
+  }
+</style>
