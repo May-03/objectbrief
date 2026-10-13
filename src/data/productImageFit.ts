@@ -18,6 +18,7 @@ export const WHITE_BACKGROUND_PRODUCT_IMAGES = new Set<string>([
   "/images/products/ali-1600626061135.jpg",
   "/images/products/ali-1600670702379.jpg",
   "/images/products/ali-1600695519353.jpg",
+  "/images/products/ali-1600698155253.jpg",
   "/images/products/ali-1600766164744.jpg",
   "/images/products/ali-1600845080603.jpg",
   "/images/products/ali-1600892916003.jpg",
