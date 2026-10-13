@@ -1,5 +1,4 @@
 ---
-import { WHITE_BACKGROUND_PRODUCT_IMAGES } from "../../data/productImageFit";
 import { PRODUCT_IMAGE_SIZE } from "../../data/productImageSize";
 
 interface Props {
@@ -40,15 +39,9 @@ const facts = [
   moq ? `MOQ: ${moq}` : null,
 ].filter((fact): fact is string => Boolean(fact));
 
-// A workspace photo fills the column by cropping. A catalogue shot on a plain
-// light background would lose the product's edges that way, so it is fitted
-// whole — the column behind it is white, the same as the photo's own
-// background, so there is still no gap above or below. See
-// src/data/productImageFit.ts for which images are which.
-const fitsWhole = Boolean(image && WHITE_BACKGROUND_PRODUCT_IMAGES.has(image));
-const imageFit = fitsWhole
-  ? "product-image object-contain"
-  : "product-image object-cover";
+// Fill the image column edge to edge with a centered crop, matching the
+// equipvia card treatment (background-size: cover).
+const imageFit = "product-image object-cover";
 
 // The image is `w-full` with an automatic height, so the browser works out the
 // placeholder box from these two attributes before the file arrives. Declaring
