@@ -1,0 +1,170 @@
+---
+title: "Why Does Fertilizer Concentration Change During Fertigation?"
+excerpt: "A stock-tank and injection guide for diagnosing dilution, settling and uneven nutrient delivery"
+seoTitle: "Why Does Fertilizer Concentration Change During Fertigation?"
+seoDescription: "Why does fertilizer concentration change during fertigation? Diagnose batch-tank dilution, settling, temperature, sampling location and injector drift before changing equipment."
+date: 2026-10-15
+category: "guides"
+tags: ["alibaba", "suppliers", "troubleshooting"]
+author: "lena-schmidt"
+thumbnail: ./cover.jpg
+thumbnailAlt: "Fertigation valve and injection manifold with filters, gauges and hose"
+imageCredit:
+  caption: "A fertigation injection unit with filters, gauges and distribution hose."
+  author: "Rom4ik100"
+  authorUrl: "https://commons.wikimedia.org/wiki/File:Agrosheriff%27s_Fertigation_Unit.jpg"
+  source: "Wikimedia Commons"
+  sourceUrl: "https://commons.wikimedia.org/wiki/File:Agrosheriff%27s_Fertigation_Unit.jpg"
+featured: false
+affiliateDisclosure: true
+---
+import AffiliateProductCard from "../../../components/affiliate/ProductRecommendation.astro"
+
+A fertigation system can deliver a different fertilizer concentration at the beginning and end of the same irrigation run without a broken injector. In a pressure-differential or batch tank, irrigation water progressively dilutes the tank. In a non-pressurized stock tank, the concentration can drift because solids settle, the solution warms or cools, water evaporates, the injector draws from a poorly mixed layer, or the sample is taken before the solution has reached the far end of the zone. The right response is to identify which concentration is changing before choosing a larger pump or a new tank.
+
+This guide is for technical buyers and operators selecting a stock tank, agitator, batch tank or monitoring routine for drip fertigation. It does not repeat the earlier guides on calcium–phosphate compatibility, injector ratio calibration, injector sizing, system layout, emitter clogging or pressure-regulator faults.
+
+## The short answer
+
+First decide whether the system is a flow-through batch tank or a mixed stock tank. A batch tank connected across a pressure differential is expected to become weaker as water dissolves and carries fertilizer out; University of California guidance says it is unsuitable when concentration must remain relatively constant. [E01][E02] A stock tank feeding a metering, hydraulic or electric injector should be mixed to keep the withdrawal point representative of the tank, then checked at the injector outlet or a downstream sampling point.
+
+Record the tank recipe, injector ratio or flow, tank level, water temperature, EC or other approved concentration indicator, and time from injection to the sample point. A single reading cannot tell whether the tank recipe was wrong, the injector drifted, or the nutrient front has not reached the outlet.
+
+## Match the symptom to the mechanism
+
+|Field symptom|Likely mechanism|First check|
+|---|---|---|
+|EC or concentration starts high and falls during one batch-tank run|Pressure-differential dilution|Compare tank and downstream samples at the start, middle and end of injection|
+|The top of a stock tank reads clear but the bottom contains solids|Settling, low solubility or incompatible concentrate|Agitate, inspect the bottom drain and confirm the fertilizer label and water quality|
+|The first lateral receives a different reading from the last lateral|Travel time, inadequate flushing or nonuniform injection|Use a dye trial or timed sample sequence at near and far outlets|
+|Concentration changes after the tank sits overnight|Temperature, evaporation, precipitation or biological growth|Record tank temperature, level and appearance before restarting|
+|Injector ratio looks correct in a bucket test but crop feed varies|Tank withdrawal is not representative or injector flow is unstable|Sample the stock tank and final irrigation water under normal operating flow|
+
+These are routing clues, not diagnoses. A concentration number is only meaningful with the fertilizer formulation, source-water EC, temperature, injection ratio and sampling location written beside it.
+
+## Why pressure-differential tanks dilute
+
+### A batch tank is not a constant-concentration mixer
+
+A pressure tank or batch tank diverts irrigation water through a tank containing fertilizer. The pressure difference pushes solution back into the mainline, but the tank’s dissolved concentration falls as the run continues. Agriculture Victoria lists this falling concentration as a principal disadvantage of pressure-tank fertigation, and UCANR describes the same dilution curve for batch tanks. [E01][E02]
+
+That behavior is acceptable when the design goal is to inject a known amount over a run and small concentration changes do not affect placement. It is the wrong architecture when every row must receive a nearly constant nutrient concentration or when an automated controller expects a fixed ratio.
+
+### Do not “solve” dilution by adding more fertilizer midway
+
+Adding dry fertilizer or concentrate to a pressurized tank during injection changes the recipe, can create a high-solubility zone and exposes the operator to a pressure vessel. Stop the cycle, isolate and depressurize the assembly according to the manufacturer’s procedure, then make a controlled batch. The tank and piping must be rated for the irrigation pressure; a general-purpose open mixing tank is not a substitute for a pressure-rated batch tank. [E01]
+
+## Why a mixed stock tank still drifts
+
+### Settling and incomplete dissolution
+
+Dry fertilizers may include coatings, fillers or poorly soluble fractions. UCANR recommends agitation until the material is dissolved and filtration between the stock tank and the injection point. UGA advises starting with part of the water, adding fertilizer in small increments while continuously mixing, and adding the remaining water only after the target material has dissolved. [E03][E04]
+
+If the intake is near the bottom of a flat tank, the injector may pull a concentrated slug of settled material first and a weak layer later. A bottom flush valve, a raised intake above settled solids, or a recirculation loop is often more useful than a faster injector.
+
+### Temperature and evaporation
+
+Solubility is not a constant number across all water temperatures. If a concentrate is close to its solubility limit, cooling can turn a clear mix into crystals or sediment; evaporation can raise the concentration of a remaining solution. Treat a “salted” tank as a formulation or stability problem, not automatically as a failed pump. The supplier must state the fertilizer’s solubility basis, mixing temperature and acceptable storage time.
+
+### The tank can be uniform while the sample is wrong
+
+A sample taken immediately at the injector outlet may not represent the concentration at the far end of a long block. Agriculture Victoria recommends checking concentration in the irrigation water and allowing enough time for the solution to reach peripheral outlets before stopping irrigation. A short dye trial can reveal the travel time without consuming fertilizer. [E05]
+
+## A practical concentration-control protocol
+
+1. Define the control variable. Use the fertilizer label’s nutrient basis (for example, ppm nitrogen or grams per litre) as the design target. EC can be a useful field proxy only after the source-water EC, fertilizer formulation and temperature are documented. UGA and Maryland Extension both use the difference between fertilizer-solution EC and irrigation-water EC in injector checks. [E06][E07]
+
+2. Make the batch by mass and final volume. Weigh the fertilizer, dissolve it in roughly 80–90% of the intended water volume while mixing, then top up to the final marked volume. Do not infer concentration from the tank level alone after evaporation or foam. [E04]
+
+3. Mix before and during withdrawal. For dry material, keep the agitator or recirculation loop running until the last sample is visually uniform. Match the impeller, motor, speed and baffle arrangement to the tank diameter and fertilizer formulation; a pump that only swirls the surface is not proof of bottom-to-top turnover.
+
+4. Verify the injector under normal flow. A bucket test performed with the zone closed or at a different pressure can hide a variable draw rate. Measure the volume withdrawn from the stock tank over a timed interval while the irrigation zone is operating.
+
+5. Sample in a sequence. Take a baseline irrigation-water sample, a stock-tank sample after mixing, a near-injection sample and a far-end sample after the calculated travel time. Record time, tank level and EC or laboratory concentration for each.
+
+6. Flush and close the loop. After nutrient injection, continue irrigation long enough to move the solution through the block, then flush the injector, filter and lines with clean water. This prevents the last concentrated pocket or residual precipitate from remaining in the assembly. [E05]
+
+## Choose the equipment architecture by concentration requirement
+
+|Requirement|More suitable architecture|Buyer implication|
+|---|---|---|
+|Known total fertilizer amount; concentration may taper|Pressure-differential batch tank|Specify pressure rating, usable volume and a dilution profile; do not promise constant ppm|
+|Nearly constant concentration during a long run|Agitated stock tank plus metering, hydraulic or electric injector|Request flow-proportional dosing, minimum flow and a calibration procedure|
+|Dry fertilizer with a settling tendency|Agitated tank with bottom drain or recirculation and a serviceable filter|Confirm impeller reach, drain position, intake height and clean-out access|
+|Two concentrates that precipitate when mixed|Separate A/B stock tanks or sufficiently dilute final mixing|Keep the compatibility decision separate from the tank-size decision|
+|Long laterals or multiple irrigation blocks|Injection point with timed travel and representative downstream sampling|Document flush time and the far-end sample location|
+
+This is a duty-based selection, not a ranking of tank types. Positive-displacement pumps generally provide more predictable metering than batch tanks, but they still cannot correct a stock solution that is settling, precipitating or being sampled at the wrong point. UCANR notes that differential-pressure devices are economical but less precise than displacement pumps. [E03]
+
+## RFQ questions that expose hidden concentration risk
+
+Ask the supplier to answer these questions in writing: Is the tank open, sealed or pressure-rated? What is the working and test pressure? What fertilizer families and pH range are allowed in the wetted materials? What is the recommended agitator speed and turnover pattern for low-viscosity fertilizer solution? Does the tank include a bottom drain, raised suction tube, baffle or recirculation port? Can the supplier provide a mixing drawing, motor curve and spare seal list?
+
+For an injector or dosing skid, add: minimum and maximum water flow; injection range; flow-proportional control method; calibration volume and duration; allowable source-water EC and temperature; check-valve and anti-siphon arrangement; and the location of the recommended sample port. “Suitable for fertilizer” is a starting claim, not a concentration-control specification.
+
+Ask for a sample calculation using your actual fertilizer analysis, tank volume and injection ratio. UGA’s worked examples show why tank size and injector ratio must be calculated together rather than selected independently. [E06]
+
+## Sourcing candidates for technical follow up
+
+The following Alibaba listings are sourcing routes, not independent approvals. CPS destinations were checked against their Product IDs on 15 October 2026; seller specifications, delivered configuration, stock, shipping, Affiliate Reports attribution and field performance remain separate verification gates.
+
+### Sourcing Candidate A — 1000 L HDPE agitator mixer for liquid fertilizer
+
+<AffiliateProductCard
+  image="/images/products/ali-1601089699755.jpg"
+  imageAlt="White HDPE mixing tank with a top-mounted agitator motor and discharge valve"
+  title="1000 L HDPE agitator mixer for liquid fertilizer"
+  label="Alibaba sourcing candidate"
+  description="A 1000 L HDPE tank-and-agitator route for liquid fertilizer. Ask for the tank wall specification, chemical compatibility, impeller geometry, motor voltage, bottom-drain arrangement, working temperature and a mixing test with your chosen fertilizer."
+  features={["Tank-and-agitator role, not pressure-rated", "Confirm wall spec, impeller geometry and motor voltage", "Request a mixing test with your fertilizer"]}
+  moq="Check current listing"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601089699755"
+  buttonText="Check Alibaba listing"
+/>
+
+Marketplace observations: the listing is presented as a 1000 L HDPE agitator mixer for liquid fertilizer; the search result displays 16 store reviews and “9 yrs on Alibaba.com.” The product evidence supports a tank-and-agitator role, not a pressure-rated batch-tank role. Ask for the actual tank wall specification, chemical compatibility, impeller geometry, motor voltage, bottom-drain arrangement, working temperature and a mixing test using the chosen fertilizer. Treat the 9-year platform tenure and store reviews as supplier signals, not proof of this exact configuration.
+
+### Sourcing Candidate B — stainless-steel agitator IBC/tote tank
+
+<AffiliateProductCard
+  image="/images/products/ali-1600526915134.jpg"
+  imageAlt="Stainless-steel agitated tank with a top-mounted motor and transfer pump"
+  title="Stainless-steel agitated stock tank (304/316 options)"
+  label="Alibaba sourcing candidate"
+  description="A stainless-steel agitated-tank route for buyers who need better chemical compatibility than HDPE. The reviewed listing shows 304/316 options and a 1.5 kW motor option; confirm whether the quoted vessel is open or pressure-rated and request a pressure certificate and dimensional drawing."
+  features={["304/316 stainless-steel options", "Confirm open vs pressure-rated vessel", "Request pressure certificate and drawing"]}
+  moq="Check current listing"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1600526915134"
+  buttonText="Check Alibaba listing"
+/>
+
+Marketplace observations: the listing shows an agitator IBC/tote tank, 100–500 L capacity options, 304/316 stainless-steel choices, a 1.5 kW motor option, 8 years on Alibaba.com and a 5/5 store rating from 146 ratings in the reviewed result. The product page states a 1-year warranty and a custom configuration. Confirm whether the quoted vessel is open or pressure-rated; the listing is better treated as a mixed stock-tank candidate until the supplier provides a pressure certificate and drawing.
+
+These candidates are deliberately not ranked. Candidate A has a direct liquid-fertilizer positioning and HDPE option; Candidate B has stronger visible store-review volume and stainless-steel configurations. The correct choice depends on fertilizer chemistry, batch size, operating pressure, required concentration stability and the test evidence returned in the RFQ.
+
+## Troubleshooting questions buyers ask
+
+### Why does the first sample look stronger than the last one?
+
+If the system uses a pressure-differential tank, progressive dilution is the expected explanation. If it uses a mixed stock tank, check settling, temperature, withdrawal height and injector draw rate. Then compare samples after the solution travel time rather than sampling the far outlet immediately after starting the pump.
+
+### Can I use EC alone to control fertilizer concentration?
+
+EC is a practical proxy for many soluble fertilizers, but it is not a universal mass measurement. Subtract the source-water EC, use the fertilizer maker’s EC table where available, control temperature and verify the relationship with a weighed batch or laboratory test. Do not compare raw EC numbers from different fertilizers as if they were interchangeable.
+
+### Does a bigger agitator guarantee a stable stock solution?
+
+No. Stability depends on formulation, solubility, tank geometry, impeller placement, baffles, temperature and residence time. A larger motor may only create a surface vortex. Ask for a mixing pattern or test result that demonstrates bottom-to-top turnover without excessive air entrainment.
+
+## References
+
+01. Agriculture Victoria, “Fertigation.” [Source](https://agriculture.vic.gov.au/farm-management/water/irrigation/drip-irrigation/fertigation)
+02. University of California ANR, “Fertigation,” publication PDF. [Source](https://ucanr.edu/sites/default/files/2011-02/73697.pdf)
+03. UC ANR, “Chemigation Injection Devices.” [Source](https://ucanr.edu/node/153909/printable/print)
+04. University of Georgia CAES, “Drip Chemigation: Injecting Fertilizer, Acid and Chlorine,” B1130. [Source](https://fieldreport.caes.uga.edu/publications/B1130/drip-chemigation-injecting-fertilizer-acid-and-chlorine/)
+05. Agriculture Victoria, “Monitoring fertiliser concentrations” section of Fertigation. [Source](https://agriculture.vic.gov.au/farm-management/water/irrigation/drip-irrigation/fertigation)
+06. University of Georgia CAES, “Fertilizer Injectors: Selection, Maintenance and Calibration,” B1237. [Source](https://fieldreport.caes.uga.edu/publications/B1237/fertilizer-injectors-selection-maintenance-and-calibration/)
+07. University of Maryland Extension, “Care and Calibration of Injector Pumps,” FS-1121. [Source](https://extension.umd.edu/resource/care-and-calibration-injector-pumps-fs-1121)
+08. NSW Department of Primary Industries and Regional Development, “Horticultural fertigation — techniques, equipment and management.” [Source](https://www.dpird.nsw.gov.au/agriculture/water/irrigation/crops/fertigation)
+09. Priva Help Center, “Why should I use stock tanks?” [Source](https://support.priva.com/hc/en-us/articles/23685333148956-Why-should-I-use-stock-tanks)
+10. Reddit field discussions were used only as language and problem-signal inputs; the technical recommendations above are based on the extension and government sources.
