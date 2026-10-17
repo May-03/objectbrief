@@ -45,7 +45,7 @@ fi
 # "Product <digits>" check above, yet both are exactly the leak policy forbids.
 # Image paths legitimately contain amz-<ASIN>.jpg, so strip them first.
 leakin="$(sed -E 's#/images/products/[A-Za-z0-9._-]+#IMGPATH#g; s#https?://[^ )|"]+#URL#g' "$f")"
-leaks="$(grep -nE '\((1[0-9]{12}|6[0-9]{10})\)|\bB0[A-Z0-9]{8}\b|\bCPS (route|candidate|status|link|landing|destination|product URL)|\bCPS\b' <<<"$leakin" || true)"
+leaks="$(grep -nE '\((1[0-9]{12}|6[0-9]{10})\)|\bB0[A-Z0-9]{8}\b|\bCPS (route|candidate|status|link|landing|destination|product URL)|\bCPS\b|Product I[dD]s?[ ,:]*[0-9]{6,}|supplier="[^"]*·[ ]*"' <<<"$leakin" || true)"
 if [ -z "$leaks" ]; then
   echo "OK  no bare PIDs/ASINs/CPS jargon in visible text"
 else
