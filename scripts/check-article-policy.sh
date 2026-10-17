@@ -40,6 +40,41 @@ else
   fail=1
 fi
 
+# bare identifiers and internal-tooling wording that must never reach a reader.
+# A PID in parentheses (e.g. "(1600124801771)") and a bare ASIN pass the
+# "Product <digits>" check above, yet both are exactly the leak policy forbids.
+# Image paths legitimately contain amz-<ASIN>.jpg, so strip them first.
+leakin="$(sed -E 's#/images/products/[A-Za-z0-9._-]+#IMGPATH#g; s#https?://[^ )|"]+#URL#g' "$f")"
+leaks="$(grep -nE '\((1[0-9]{12}|6[0-9]{10})\)|\bB0[A-Z0-9]{8}\b|\bCPS (route|candidate|status|link|landing|destination|product URL)|\bCPS\b' <<<"$leakin" || true)"
+if [ -z "$leaks" ]; then
+  echo "OK  no bare PIDs/ASINs/CPS jargon in visible text"
+else
+  echo "FAIL bare identifier or internal jargon in visible text:"
+  echo "$leaks" | head -8
+  fail=1
+fi
+
+# internal editorial / business notes that belong to the docx, not the page
+internal="$(grep -nE 'supplied by the site owner|user-supplied|commercial mix|project allocation|before publication|Before publishing|evidence gate|Affiliate Reports|Affiliate state|Amazon reference|Research note:|Research limitation:|Ranked result|Primary query|Page role|Cannibalization|INTERNAL|Exclude this section|Editorial notes' <<<"$leakin" || true)"
+if [ -z "$internal" ]; then
+  echo "OK  no internal editorial or commission notes"
+else
+  echo "FAIL internal notes left in article:"
+  echo "$internal" | head -8
+  fail=1
+fi
+
+# bare "ObjectBrief — <title>." lines are unwritten internal-link candidates;
+# a real cross-reference must be a markdown link
+barelink="$(grep -nE '^ObjectBrief —' "$f" | grep -v '\[Source\]' | grep -v '](' || true)"
+if [ -z "$barelink" ]; then
+  echo "OK  no bare ObjectBrief link-candidate lines"
+else
+  echo "FAIL bare ObjectBrief lines (make them markdown links or delete):"
+  echo "$barelink" | head -8
+  fail=1
+fi
+
 # affiliate links must carry a productId pinned to the target product
 # strip URLs first: every offer.alibaba.com link checked separately
 # Exception: user-supplied opaque short codes (offer.alibaba.com/cps/{code}) are
