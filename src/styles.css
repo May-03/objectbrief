@@ -452,6 +452,17 @@
   & li {
     margin-bottom: 0.5rem;
   }
+  /* Markdown splits a list into a "loose" list when its items are separated by
+     blank lines, wrapping each item's text in its own <p>. That paragraph keeps
+     the 1.25rem body margin on top of the 0.5rem list-item margin, so the same
+     Sources list looks twice as airy depending on how it was written. Zero the
+     paragraph margin inside list items so both forms read the same. */
+  & li > p {
+    margin-bottom: 0;
+  }
+  & li > p + p {
+    margin-top: 0.5rem;
+  }
   /* The affiliate product card is rendered inside .prose-article, so the
      descendant rules above would otherwise stack their own margins on top of
      the card's internal spacing — which read as loose, uneven gaps between the
