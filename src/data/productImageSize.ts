@@ -5,6 +5,9 @@
 // 重新生成: python3 scripts/gen-product-image-size.py
 
 export const PRODUCT_IMAGE_SIZE: Record<string, [number, number]> = {
+  "/images/products/amz-B08CGJVFVQ.jpg": [700, 700],
+  "/images/products/amz-B0CJ56M8D4.jpg": [700, 700],
+  "/images/products/amz-B09687GWCL.jpg": [700, 700],
   "/images/products/amz-B06WRPGVS7.jpg": [700, 700],
   "/images/products/amz-B000JQN7SC.jpg": [700, 700],
   "/images/products/amz-B08BZFRQLS.jpg": [700, 700],
