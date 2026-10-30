@@ -105,7 +105,7 @@ if [ -n "$dist_root" ]; then
   slug="$(basename "$(dirname "$f")")"
   h="$dist_root/blog/$slug/index.html"
   if [ -f "$h" ]; then
-    total="$(grep -o 'href="https://offer\.alibaba\.com/cps/' "$h" | wc -l | tr -d ' ')"
+    total="$(grep -o 'href="https://offer\.alibaba\.com/cps/' "$h" | wc -l | tr -d ' ' || true)"
     if [ "$total" -gt 0 ]; then
       # per-tag check: every CPS anchor must carry sponsored/_blank/noopener.
       # (page-wide counting is wrong — share buttons also use target="_blank".)
