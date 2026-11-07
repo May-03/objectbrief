@@ -1,0 +1,39 @@
+name: seo-audit
+on:
+  workflow_dispatch:
+  push:
+    branches: [ci/seo-audit]
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: install
+        run: |
+          corepack enable || true
+          if [ -f pnpm-lock.yaml ]; then
+            corepack prepare pnpm@latest --activate || npm i -g pnpm
+            pnpm install --no-frozen-lockfile
+          elif [ -f package-lock.json ]; then
+            npm ci || npm install
+          else
+            npm install
+          fi
+      - name: build
+        run: npm run build --if-present || npx astro build
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: audit
+        run: |
+          python3 -I .seo-audit/audit.py . .seo-audit/result.json
+          echo '===== RESULT JSON ====='
+          cat .seo-audit/result.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-audit-result
+          path: .seo-audit/result.json
