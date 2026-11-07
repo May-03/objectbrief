@@ -30,15 +30,20 @@ jobs:
           python-version: '3.12'
       - name: 定位构建产物
         run: |
-          # Vercel 适配器把产物放在 .vercel/output/static，不是 dist/；
-          # 审计脚本按目录打分找 web root，不会进隐藏目录。
-          if [ ! -d dist ] && [ -d .vercel/output/static ]; then
-            cp -r .vercel/output/static dist
+          # Vercel 适配器会同时留下 dist/（client+server 的中间产物）和
+          # .vercel/output/static（真正部署的那份）。上一版只在 dist 不存在
+          # 时才拷贝，结果审计看的是 dist/client——它没有顶层 index.html
+          # （首页是 SSR），于是 web root 被判成了某篇文章的叶子目录，
+          # 174 页只审了 1 页。这里让 static 无条件覆盖。
+          if [ -d .vercel/output/static ]; then
+            rm -rf dist && cp -r .vercel/output/static dist
           fi
           echo "--- 产物目录 ---"
           for d in dist build out .vercel/output/static; do
             [ -d "$d" ] && echo "$d: $(find "$d" -name '*.html' | wc -l) html"
           done
+          echo "--- dist 顶层 ---"
+          ls dist 2>/dev/null | head -12
       - name: audit
         run: |
           python3 -I .seo-audit/audit.py . .seo-audit/result.json
