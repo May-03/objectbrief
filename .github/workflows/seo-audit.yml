@@ -54,3 +54,8 @@ jobs:
         with:
           name: seo-audit-result
           path: .seo-audit/result.json
+      - name: content-audit
+        run: |
+          python3 -I .seo-audit/content.py dist .seo-audit/content.json --name "$GITHUB_REPOSITORY"
+          echo '===== CONTENT JSON ====='
+          cat .seo-audit/content.json
