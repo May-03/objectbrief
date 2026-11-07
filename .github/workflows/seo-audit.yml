@@ -16,7 +16,8 @@ jobs:
           corepack enable || true
           if [ -f pnpm-lock.yaml ]; then
             corepack prepare pnpm@latest --activate || npm i -g pnpm
-            pnpm install --no-frozen-lockfile
+            pnpm install --no-frozen-lockfile --config.dangerouslyAllowAllBuilds=true \
+              || pnpm install --no-frozen-lockfile
           elif [ -f package-lock.json ]; then
             npm ci || npm install
           else
@@ -27,6 +28,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: 定位构建产物
+        run: |
+          # Vercel 适配器把产物放在 .vercel/output/static，不是 dist/；
+          # 审计脚本按目录打分找 web root，不会进隐藏目录。
+          if [ ! -d dist ] && [ -d .vercel/output/static ]; then
+            cp -r .vercel/output/static dist
+          fi
+          echo "--- 产物目录 ---"
+          for d in dist build out .vercel/output/static; do
+            [ -d "$d" ] && echo "$d: $(find "$d" -name '*.html' | wc -l) html"
+          done
       - name: audit
         run: |
           python3 -I .seo-audit/audit.py . .seo-audit/result.json
