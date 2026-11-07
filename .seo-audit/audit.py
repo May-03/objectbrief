@@ -143,7 +143,36 @@ def find_web_root():
         score = (-int(junk), has_robots + has_sm + has_index, n_html, -depth)
         if best is None or score > best[0]:
             best = (score, os.path.relpath(dp, ROOT))
-    return best[1] if best else None
+    if best is None:
+        return None
+    pick = best[1]
+
+    # A root is only credible if it holds most of the pages beneath it.
+    #
+    # objectbrief server-renders its homepage and emits robots.txt/sitemap.xml
+    # from src/pages/*.js, so the built dist/ has no top-level index.html and
+    # no markers — nothing up there clears the bar above. The only directories
+    # that do are the leaf article folders, each with its own index.html, so
+    # the walk crowned one of them and the audit looked at 1 page out of 174.
+    #
+    # Climbing only on a 5x gap keeps this away from the normal cases: for
+    # big-walk-companion the repo root holds 57 pages against site/'s 54, far
+    # under the threshold, so site/ stands.
+    n_pick = sum(1 for _ in walk(os.path.join(ROOT, pick), {'.html'})) if pick != '.' \
+        else sum(1 for _ in walk(ROOT, {'.html'}))
+    parts = [] if pick == '.' else pick.replace('\\', '/').split('/')
+    better = []
+    for i in range(len(parts) - 1, -1, -1):
+        anc = '/'.join(parts[:i]) or '.'
+        n_anc = sum(1 for _ in walk(os.path.join(ROOT, anc) if anc != '.' else ROOT,
+                                    {'.html'}))
+        if n_anc >= max(5, n_pick * 5):
+            better.append((n_anc, i, anc))
+    if better:
+        # the most pages, and among ties the deepest — the tightest directory
+        # that still wraps them, so dist/ wins over the repo root.
+        return max(better)[2]
+    return pick
 
 
 # What is deployed is what is COMMITTED. Only generate when the repo ships no
