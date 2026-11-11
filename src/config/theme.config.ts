@@ -7,7 +7,8 @@ const siteUrl = (
 export const SITE = {
   name: "Object Brief",
   description:
-    "Practical sourcing intelligence for product buyers — supplier guides, product comparisons, MOQ breakdowns, and honest Alibaba sourcing advice, written for people who actually order.",
+    "Buyer's guides for equipment and the small parts that keep it running: fit checks, specifications, MOQs and supplier questions, written for people who place the order.",
+  tagline: "Equipment and parts buying guides",
   url: siteUrl,
   locale: "en-US",
   language: "en",
@@ -16,7 +17,10 @@ export const SITE = {
 
 export const NAVIGATION = [
   { to: "/", label: "Home" },
-  { to: "/blog", label: "Article" },
+  { to: "/categories/equipment", label: "Equipment" },
+  { to: "/categories/parts", label: "Parts" },
+  { to: "/categories/comparisons", label: "Comparisons" },
+  { to: "/blog", label: "Archive" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
@@ -63,11 +67,44 @@ export const authors = [
 ];
 
 export const categories = [
-  { slug: "guides", name: "Guides" },
-  { slug: "products", name: "Products" },
-  { slug: "comparisons", name: "Comparisons" },
-  { slug: "sourcing", name: "Sourcing" },
-  { slug: "packaging", name: "Packaging" },
+  {
+    slug: "equipment",
+    name: "Equipment",
+    description:
+      "Machines and instruments for small-batch production and packaging: sealers, cappers, labelers, fillers, checkweighers, coders and test equipment. Each guide covers what to verify before you buy.",
+  },
+  {
+    slug: "parts",
+    name: "Parts & Consumables",
+    description:
+      "The small components that decide whether equipment works: induction liners, shrink bands, closures, sprayers and similar parts. Size, fit and specification checks before a bulk order.",
+  },
+  {
+    slug: "comparisons",
+    name: "Comparisons",
+    description:
+      "Side-by-side decisions between equipment types, materials and formats, with the specifications that separate them.",
+  },
+  {
+    slug: "household",
+    name: "Household Parts & Care",
+    description:
+      "Replacement parts and care guides for common household items: fit checks, sizing and what to try before buying.",
+  },
+];
+
+// Categories shown in the homepage feed and chosen for the featured slot.
+// Posts in other categories stay published and reachable through the archive.
+export const FEED_EXCLUDED_CATEGORIES = ["household"];
+
+// Hand-picked entry points for the homepage "Start here" list and the sidebar.
+export const START_HERE = [
+  "how-to-choose-a-handheld-induction-sealer-for-small-batch-bottles",
+  "manual-vs-semi-automatic-round-bottle-labelers",
+  "how-to-choose-a-handheld-or-benchtop-screw-capper-for-small-batch-bottles",
+  "induction-seal-liner-size-guide",
+  "shrink-band-size-guide",
+  "28-400-vs-28-410-trigger-sprayers",
 ];
 
 export const tags = [

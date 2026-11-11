@@ -1,8 +1,23 @@
 ---
 import Icon from "./Icon.astro";
+import { SITE } from "../lib/blog-data.js";
 
 const { items = [] } = Astro.props;
+const breadcrumbLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: items
+    .filter((item, index) => item.to || index === items.length - 1)
+    .map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.label,
+      item: new URL(item.to ?? Astro.url.pathname, SITE.url).toString(),
+    })),
+};
 ---
+
+{items.length > 1 && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
 
 <nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-1 text-xs text-muted-foreground">
   {

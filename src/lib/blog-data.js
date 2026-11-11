@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
-export { SITE, authors, categories, tags } from "../config/theme.config.ts";
-import { authors, categories, tags } from "../config/theme.config.ts";
+export { SITE, authors, categories, tags, START_HERE, FEED_EXCLUDED_CATEGORIES } from "../config/theme.config.ts";
+import { authors, categories, tags, START_HERE, FEED_EXCLUDED_CATEGORIES } from "../config/theme.config.ts";
 
 const isoDate = (date) => date?.toISOString().slice(0, 10);
 const wordsPerMinute = 220;
@@ -55,11 +55,17 @@ export const postsByAuthor = async (slug) =>
   (await sortedPosts()).filter((post) => post.author === slug);
 export const sortedPosts = async () =>
   [...(await posts())].sort((a, b) => (a.date < b.date ? 1 : -1));
+export const feedPosts = async () =>
+  (await sortedPosts()).filter((post) => !FEED_EXCLUDED_CATEGORIES.includes(post.category));
 export const featuredPost = async () => {
-  const sorted = await sortedPosts();
+  const sorted = await feedPosts();
   return sorted.find((post) => post.featured) ?? sorted[0];
 };
-export const popularPosts = async () => (await sortedPosts()).slice(0, 4);
+export const popularPosts = async () => {
+  const sorted = await sortedPosts();
+  const picked = START_HERE.map((slug) => sorted.find((post) => post.slug === slug)).filter(Boolean);
+  return picked.length > 0 ? picked : (await feedPosts()).slice(0, 4);
+};
 export const relatedPosts = async (post, n = 3) =>
   (await sortedPosts())
     .filter((candidate) => candidate.slug !== post.slug)

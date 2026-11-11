@@ -18,7 +18,7 @@ const blog = defineCollection({
       date: z.coerce.date(),
       updated: z.coerce.date().optional(),
       readingTime: z.number().int().positive().optional(),
-      category: z.string(),
+      category: z.enum(["equipment", "parts", "comparisons", "household"]),
       tags: z.array(z.string()).default([]),
       author: z.string(),
       thumbnail: image(),

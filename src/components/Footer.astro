@@ -43,14 +43,15 @@ const { flush = false } = Astro.props;
         <li><a href="/about" class="hover:text-foreground">About</a></li>
         <li><a href="/contact" class="hover:text-foreground">Contact</a></li>
         <li><a href="/blog" class="hover:text-foreground">Archive</a></li>
+        <li><a href="/affiliate-disclosure" class="hover:text-foreground">Affiliate disclosure</a></li>
         <li><a href="/privacy" class="hover:text-foreground">Privacy policy</a></li>
       </ul>
     </div>
   </div>
   <div class="border-t border-border/60">
     <div class="mx-auto flex max-w-6xl flex-col items-start justify-between gap-2 px-5 py-5 text-xs text-muted-foreground sm:flex-row sm:items-center">
-      <div>&copy; {new Date().getFullYear()} {SITE.name}. Quietly made on the open web.</div>
-      <div>Set in Fraunces &amp; Inter.</div>
+      <div>&copy; {new Date().getFullYear()} {SITE.name}.</div>
+      <div>As an Amazon Associate, {SITE.name} earns from qualifying purchases.</div>
     </div>
   </div>
 </footer>

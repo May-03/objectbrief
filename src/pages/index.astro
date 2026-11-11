@@ -8,31 +8,55 @@ import {
   SITE,
   categories,
   featuredPost,
-  sortedPosts,
+  feedPosts,
   popularPosts,
   getAuthor,
   getCategory,
   formatDate,
 } from "../lib/blog-data.js";
+import { CONTACT } from "../config/theme.config.ts";
 
 const featured = await featuredPost();
+const allPostsCount = (await feedPosts()).reduce((acc, post) => {
+  acc[post.category] = (acc[post.category] ?? 0) + 1;
+  return acc;
+}, {});
 const featuredAuthor = getAuthor(featured.author);
 const featuredCategory = getCategory(featured.category);
-const latest = (await sortedPosts()).filter((post) => post.slug !== featured.slug);
+const latest = (await feedPosts()).filter((post) => post.slug !== featured.slug);
+const typeCards = categories
+  .filter((category) => category.slug !== "household")
+  .map((category) => ({
+    ...category,
+    count: allPostsCount[category.slug] ?? 0,
+  }));
 const popular = await popularPosts();
 ---
 
 <BaseLayout
-  title={`${SITE.name} - Sourcing intelligence for product buyers`}
+  title={`${SITE.name}: ${SITE.tagline}`}
   description={SITE.description}
   canonical="/"
   flushFooter
   jsonLd={{
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: SITE.name,
-    url: `${SITE.url}/`,
-    description: SITE.description,
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": `${SITE.url}/#website`,
+        name: SITE.name,
+        url: `${SITE.url}/`,
+        description: SITE.description,
+        publisher: { "@id": `${SITE.url}/#organization` },
+      },
+      {
+        "@type": "Organization",
+        "@id": `${SITE.url}/#organization`,
+        name: SITE.name,
+        url: `${SITE.url}/`,
+        email: CONTACT.email,
+      },
+    ],
   }}
 >
   <!-- Featured: compact editorial hero, text left / image right -->
@@ -104,8 +128,8 @@ const popular = await popularPosts();
           <a href="/blog" class="text-sm text-muted-foreground hover:text-foreground">
             Browse all guides <span aria-hidden="true">&rarr;</span>
           </a>
-          <a href="/categories/sourcing" class="text-sm text-muted-foreground hover:text-foreground">
-            Sourcing notes
+          <a href="/categories/equipment" class="text-sm text-muted-foreground hover:text-foreground">
+            Equipment guides
           </a>
         </div>
       </div>
@@ -125,14 +149,28 @@ const popular = await popularPosts();
     }
   </style>
 
+  <!-- Browse by type -->
+  <section class="mx-auto max-w-6xl px-5 pt-14">
+    <h2 class="font-serif text-2xl font-semibold">Browse by type</h2>
+    <div class="mt-6 grid gap-5 sm:grid-cols-3">
+      {
+        typeCards.map((card) => (
+          <a href={`/categories/${card.slug}`} class="group block rounded-md border border-border p-5 hover:border-primary">
+            <div class="flex items-baseline justify-between gap-3">
+              <h3 class="font-serif text-lg font-semibold group-hover:text-primary">{card.name}</h3>
+              <span class="text-xs text-muted-foreground">{card.count} guides</span>
+            </div>
+            <p class="mt-2 text-sm leading-relaxed text-muted-foreground">{card.description}</p>
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
   <!-- Latest guides -->
   <section class="mx-auto max-w-6xl px-5 py-14" data-home-latest>
     <div class="flex flex-wrap items-center justify-between gap-4">
       <h2 class="font-serif text-2xl font-semibold">Latest guides</h2>
-    </div>
-
-    <div data-home-empty class="mt-12 rounded-md border border-dashed border-border py-16 text-center text-muted-foreground" hidden>
-      Nothing here yet in this section.
     </div>
 
     <div class="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -146,15 +184,15 @@ const popular = await popularPosts();
     </div>
   </section>
 
-  <!-- Most helpful -->
+  <!-- Start here -->
   <section class="border-t border-border/60">
     <div class="mx-auto max-w-6xl px-5 py-14">
       <div class="flex flex-wrap items-baseline justify-between gap-4">
-        <h2 class="font-serif text-2xl font-semibold">Most helpful</h2>
+        <h2 class="font-serif text-2xl font-semibold">Start here</h2>
         <a href="/blog" class="text-xs text-muted-foreground hover:text-foreground">All guides &rarr;</a>
       </div>
       <div class="mt-6">
-        {popular.slice(0, 4).map((post) => <PostCard post={post} variant="list" />)}
+        {popular.slice(0, 6).map((post) => <PostCard post={post} variant="list" />)}
       </div>
     </div>
   </section>

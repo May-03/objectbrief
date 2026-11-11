@@ -3,8 +3,40 @@
   "headers": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "objectbrief.vercel.app" }],
-      "headers": [{ "key": "X-Robots-Tag", "value": "noindex" }]
+      "has": [
+        {
+          "type": "host",
+          "value": "objectbrief.vercel.app"
+        }
+      ],
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/categories/packaging",
+      "destination": "/categories/parts",
+      "permanent": true
+    },
+    {
+      "source": "/categories/guides",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/categories/products",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/categories/sourcing",
+      "destination": "/blog",
+      "permanent": true
     }
   ]
 }

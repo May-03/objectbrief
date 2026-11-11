@@ -37,6 +37,10 @@ const toc = headings
     id: heading.slug,
     text: heading.text,
   }));
+const hasAmazonLinks = /https?:\/\/(www\.amazon\.com|link\.amazon|amzn\.to|a\.co)\//.test(entry.body ?? "");
+const disclosureNote = hasAmazonLinks
+  ? "Disclosure: We may earn a commission if you purchase through links on this page, at no additional cost to you. As an Amazon Associate, Object Brief earns from qualifying purchases."
+  : undefined;
 const related = await relatedPosts(post);
 const { prev, next } = await adjacentPosts(post);
 const canonical = post.canonical ?? `/blog/${post.slug}`;
@@ -166,7 +170,7 @@ const jsonLd = {
     <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_220px]">
       <div class="mx-auto w-full min-w-0 max-w-2xl">
         <div class="prose-article">
-          {post.affiliateDisclosure && <AffiliateDisclosure />}
+          {post.affiliateDisclosure && <AffiliateDisclosure note={disclosureNote} />}
           <Content />
         </div>
 

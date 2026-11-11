@@ -4,6 +4,14 @@
 > article to this repo. Run the check script before every commit/push. Do not skip it.
 > 文档同时供人与 AI 使用；脚本失败则禁止 push。
 
+## 0. Category (required, validated by the content schema)
+
+`category` in the frontmatter must be one of: `equipment` (machines, instruments, test
+equipment), `parts` (components and consumables: liners, closures, bands, sprayers),
+`comparisons` (side-by-side decisions between types or formats) or `household` (legacy
+household parts and care guides; not promoted on the homepage). Old values `packaging`,
+`guides`, `products`, `sourcing` no longer exist and fail the build.
+
 ## 1. Affiliate disclosure（必须逐字统一）
 
 Every article containing Alibaba affiliate tables MUST include, before the first
