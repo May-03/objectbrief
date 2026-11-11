@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
 export { SITE, authors, categories, tags } from "../config/theme.config.ts";
-import { authors, categories, tags } from "../config/theme.config.ts";
+import { authors, categories, tags, STARTER_GUIDES } from "../config/theme.config.ts";
 
 const isoDate = (date) => date?.toISOString().slice(0, 10);
 const wordsPerMinute = 220;
@@ -46,7 +46,46 @@ export const posts = async () =>
 export const getPost = async (slug) => (await posts()).find((post) => post.slug === slug);
 export const getAuthor = (slug) => authors.find((author) => author.slug === slug);
 export const getCategory = (slug) => categories.find((category) => category.slug === slug);
-export const getTag = (slug) => tags.find((tag) => tag.slug === slug);
+const titleCase = (slug) =>
+  slug
+    .split("-")
+    .map((part) => (part ? part[0].toUpperCase() + part.slice(1) : part))
+    .join(" ");
+
+/* A tag defined in the config keeps its curated name; any other tag used in
+   frontmatter still resolves, so post pages never link to a missing tag page. */
+export const getTag = (slug) => tags.find((tag) => tag.slug === slug) ?? { slug, name: titleCase(slug) };
+
+/* Every tag in use, with its post count. */
+export const usedTags = async () => {
+  const counts = new Map();
+  for (const post of await posts()) {
+    for (const tag of post.tags) counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+  return [...counts.entries()]
+    .map(([slug, count]) => ({ ...getTag(slug), count }))
+    .sort((a, b) => b.count - a.count || a.slug.localeCompare(b.slug));
+};
+
+/* Archive pages with fewer posts than this are thin: kept for visitors,
+   excluded from the sitemap and marked noindex,follow. */
+export const MIN_INDEXABLE_POSTS = 3;
+
+export const starterGuides = async () => {
+  const bySlug = new Map((await sortedPosts()).map((post) => [post.slug, post]));
+  return STARTER_GUIDES.map((slug) => bySlug.get(slug)).filter(Boolean);
+};
+
+/* Meta descriptions render best at about 155 characters. Longer ones are cut
+   at a sentence end when one fits, otherwise at a word boundary. */
+export const fitDescription = (text = "", max = 158) => {
+  const clean = String(text).replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const slice = clean.slice(0, max);
+  const sentence = Math.max(slice.lastIndexOf(". "), slice.lastIndexOf("? "), slice.lastIndexOf("! "));
+  if (sentence > 90) return slice.slice(0, sentence + 1);
+  return slice.replace(/\s+\S*$/, "").replace(/[,;:\-–—]$/, "") + "…";
+};
 export const postsByCategory = async (slug) =>
   (await sortedPosts()).filter((post) => post.category === slug);
 export const postsByTag = async (slug) =>
@@ -60,6 +99,7 @@ export const featuredPost = async () => {
   return sorted.find((post) => post.featured) ?? sorted[0];
 };
 export const popularPosts = async () => (await sortedPosts()).slice(0, 4);
+export const latestPosts = async (n = 6) => (await sortedPosts()).slice(0, n);
 export const relatedPosts = async (post, n = 3) =>
   (await sortedPosts())
     .filter((candidate) => candidate.slug !== post.slug)

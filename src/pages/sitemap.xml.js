@@ -1,35 +1,28 @@
-import { SITE, authors, categories, sortedPosts, tags } from "../lib/blog-data.js";
+import { SITE, authors, categories, sortedPosts, usedTags, MIN_INDEXABLE_POSTS } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
 export async function GET() {
   const posts = await sortedPosts();
+  const newest = posts[0]?.updated || posts[0]?.date;
+  const indexableCategories = categories.filter(
+    (category) => posts.filter((post) => post.category === category.slug).length >= MIN_INDEXABLE_POSTS,
+  );
+  const indexableTags = (await usedTags()).filter((tag) => tag.count >= MIN_INDEXABLE_POSTS);
   const entries = [
-    { path: "/", changefreq: "weekly", priority: "1.0" },
-    { path: "/blog", changefreq: "daily", priority: "0.9" },
-    { path: "/about", changefreq: "monthly", priority: "0.6" },
-    { path: "/contact", changefreq: "monthly", priority: "0.5" },
+    { path: "/", lastmod: newest },
+    { path: "/blog", lastmod: newest },
+    { path: "/about" },
+    { path: "/contact" },
+    { path: "/affiliate-disclosure" },
+    { path: "/privacy" },
     ...posts.map((post) => ({
       path: `/blog/${post.slug}`,
       lastmod: post.updated || post.date,
-      changefreq: "monthly",
-      priority: "0.8",
     })),
-    ...categories.map((category) => ({
-      path: `/categories/${category.slug}`,
-      changefreq: "weekly",
-      priority: "0.6",
-    })),
-    ...tags.map((tag) => ({
-      path: `/tags/${tag.slug}`,
-      changefreq: "weekly",
-      priority: "0.4",
-    })),
-    ...authors.map((author) => ({
-      path: `/authors/${author.slug}`,
-      changefreq: "monthly",
-      priority: "0.5",
-    })),
+    ...indexableCategories.map((category) => ({ path: `/categories/${category.slug}`, lastmod: newest })),
+    ...indexableTags.map((tag) => ({ path: `/tags/${tag.slug}`, lastmod: newest })),
+    ...authors.map((author) => ({ path: `/authors/${author.slug}` })),
   ];
 
   const urls = entries.map((entry) =>
@@ -37,8 +30,6 @@ export async function GET() {
       "  <url>",
       `    <loc>${BASE_URL}${entry.path}</loc>`,
       entry.lastmod ? `    <lastmod>${entry.lastmod}</lastmod>` : null,
-      entry.changefreq ? `    <changefreq>${entry.changefreq}</changefreq>` : null,
-      entry.priority ? `    <priority>${entry.priority}</priority>` : null,
       "  </url>",
     ]
       .filter(Boolean)

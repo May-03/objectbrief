@@ -3,10 +3,10 @@ export const prerender = true;
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
-import { SITE, tags, postsByTag } from "../../lib/blog-data.js";
+import { SITE, usedTags, postsByTag, MIN_INDEXABLE_POSTS } from "../../lib/blog-data.js";
 
-export function getStaticPaths() {
-  return tags.map((tag) => ({ params: { slug: tag.slug }, props: { tag } }));
+export async function getStaticPaths() {
+  return (await usedTags()).map((tag) => ({ params: { slug: tag.slug }, props: { tag } }));
 }
 
 const { tag } = Astro.props;
@@ -14,9 +14,10 @@ const list = await postsByTag(tag.slug);
 ---
 
 <BaseLayout
-  title={`#${tag.name} - ${SITE.name}`}
-  description={`All writing tagged ${tag.name}.`}
+  title={`${tag.name} guides and articles - ${SITE.name}`}
+  description={`${list.length} ${list.length === 1 ? "article" : "articles"} on ${tag.name.toLowerCase()} from ${SITE.name}: fit guides, fixes and product comparisons.`}
   canonical={`/tags/${tag.slug}`}
+  noindex={list.length < MIN_INDEXABLE_POSTS}
 >
   <div class="mx-auto max-w-4xl px-5 py-12">
     <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Tags" }, { label: `#${tag.name}` }]} />

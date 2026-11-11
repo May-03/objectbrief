@@ -1,11 +1,17 @@
 ---
 interface Props {
   note?: string;
+  amazon?: boolean;
 }
 
-const { note } = Astro.props;
+const { note, amazon = false } = Astro.props;
 ---
 
-<p class="-mt-10 mb-3 text-xs leading-relaxed text-muted-foreground">
-  {note ?? "Disclosure: We may earn a commission if you purchase through links on this page, at no additional cost to you."}
-</p>
+<aside class="disclosure mb-8" aria-label="Affiliate disclosure">
+  <p>
+    <strong>Disclosure:</strong>
+    {note ?? "This guide contains affiliate links. We may earn a commission if you buy through them, at no extra cost to you."}
+    {amazon && " As an Amazon Associate we earn from qualifying purchases."}
+    <a href="/affiliate-disclosure">How we pick products</a>.
+  </p>
+</aside>
