@@ -4,7 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
 import Sidebar from "../../components/Sidebar.astro";
-import { SITE, categories, postsByCategory } from "../../lib/blog-data.js";
+import { SITE, categories, postsByCategory, MIN_INDEXABLE_POSTS } from "../../lib/blog-data.js";
 
 export function getStaticPaths() {
   return categories.map((category) => ({ params: { slug: category.slug }, props: { category } }));
@@ -15,17 +15,19 @@ const list = await postsByCategory(category.slug);
 ---
 
 <BaseLayout
-  title={`${category.name} - ${SITE.name}`}
-  description={`Writing in ${category.name} on ${SITE.name}.`}
+  title={`${category.name}: guides, fixes and comparisons - ${SITE.name}`}
+  description={category.blurb ?? `Writing in ${category.name} on ${SITE.name}.`}
   canonical={`/categories/${category.slug}`}
+  noindex={list.length < MIN_INDEXABLE_POSTS}
 >
   <div class="mx-auto max-w-6xl px-5 py-12">
     <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Categories" }, { label: category.name }]} />
     <header class="mt-6 border-b border-border pb-8">
       <div class="text-xs font-medium uppercase tracking-[0.2em] text-primary">Category</div>
       <h1 class="mt-2 font-serif text-4xl font-semibold sm:text-5xl">{category.name}</h1>
-      <p class="mt-3 text-muted-foreground">
-        {list.length} {list.length === 1 ? "piece" : "pieces"} in this section.
+      <p class="mt-3 max-w-2xl text-lg text-muted-foreground">{category.blurb}</p>
+      <p class="mt-2 text-sm text-muted-foreground">
+        {list.length} {list.length === 1 ? "article" : "articles"}, newest first.
       </p>
     </header>
 

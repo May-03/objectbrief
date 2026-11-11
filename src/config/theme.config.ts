@@ -6,19 +6,33 @@ const siteUrl = (
 
 export const SITE = {
   name: "Object Brief",
+  tagline: "Plain-spoken guides to everyday goods and small-batch supplies",
   description:
-    "Practical sourcing intelligence for product buyers — supplier guides, product comparisons, MOQ breakdowns, and honest Alibaba sourcing advice, written for people who actually order.",
+    "Plain-spoken guides to everyday goods and small-batch supplies: what fits, what to buy, and how to fix the small things that go wrong, with product picks you can check yourself.",
   url: siteUrl,
   locale: "en-US",
+  /* Path under public/ used for social previews when a page has no image. */
+  defaultOgImage: "/og-default.png",
   language: "en",
-  repositoryUrl: "https://github.com/andreialba/quietpages",
 };
 
 export const NAVIGATION = [
-  { to: "/", label: "Home" },
-  { to: "/blog", label: "Article" },
+  { to: "/categories/packaging", label: "Packaging" },
+  { to: "/categories/guides", label: "Guides" },
+  { to: "/categories/comparisons", label: "Comparisons" },
+  { to: "/blog", label: "Archive" },
   { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
+];
+
+/* Hand-picked evergreen articles for the home page "Start here" block.
+   Slugs must exist in src/content/blog; unknown slugs are skipped. */
+export const STARTER_GUIDES = [
+  "shrink-band-size-guide",
+  "induction-seal-liner-size-guide",
+  "how-to-choose-a-handheld-induction-sealer-for-small-batch-bottles",
+  "why-labels-wrinkle-skew-or-bubble-on-round-bottles",
+  "why-bath-rugs-slide-on-tile",
+  "how-to-wash-a-wool-sweater-without-shrinking",
 ];
 
 export const CONTACT = {
@@ -63,11 +77,21 @@ export const authors = [
 ];
 
 export const categories = [
-  { slug: "guides", name: "Guides" },
-  { slug: "products", name: "Products" },
-  { slug: "comparisons", name: "Comparisons" },
-  { slug: "sourcing", name: "Sourcing" },
-  { slug: "packaging", name: "Packaging" },
+  {
+    slug: "packaging",
+    name: "Packaging",
+    blurb: "Bottles, seals, labels and small-batch equipment: sizes, fit and what to test first.",
+  },
+  {
+    slug: "guides",
+    name: "Guides",
+    blurb: "Fixes and fit guides for the small things around the home that keep going wrong.",
+  },
+  {
+    slug: "comparisons",
+    name: "Comparisons",
+    blurb: "Side-by-side picks with the numbers that matter, so you can choose once.",
+  },
 ];
 
 export const tags = [

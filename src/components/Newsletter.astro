@@ -10,7 +10,7 @@ const newsletterAction = hasNewsletterEndpoint ? FORMS.newsletter.action : "/api
   compact ? (
     <div>
       <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Newsletter</div>
-      <p class="mt-2 text-sm text-muted-foreground">A short letter, once a fortnight. No noise.</p>
+      <p class="mt-2 text-sm text-muted-foreground">New guides every other Sunday.</p>
       <form
         action={newsletterAction}
         method="post"
@@ -37,9 +37,9 @@ const newsletterAction = hasNewsletterEndpoint ? FORMS.newsletter.action : "/api
   ) : (
     <section data-newsletter-cta class="border-t border-border/60 pt-16 pb-10">
       <div class="mx-auto max-w-2xl px-5 text-center">
-        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">A quieter inbox.</h2>
+        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">New guides, in your inbox.</h2>
         <p class="mt-3 text-muted-foreground">
-          One thoughtful letter every other Sunday &mdash; new essays, things worth reading, and the occasional photograph.
+          One short letter every other Sunday: the newest guides and comparisons, and nothing else.
         </p>
         <form
           action={newsletterAction}

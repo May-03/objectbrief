@@ -52,17 +52,42 @@ const socialImage = post.thumbnail
   : undefined;
 const thumbnailUrl = socialImage ? new URL(socialImage.src, SITE.url).toString() : undefined;
 const shareUrl = canonicalUrl;
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: post.title,
-  description: post.excerpt,
-  datePublished: post.date,
-  dateModified: post.updated || post.date,
-  image: thumbnailUrl,
-  author: { "@type": "Person", name: author?.name },
-  mainEntityOfPage: canonicalUrl,
-};
+const authorUrl = author ? new URL(`/authors/${author.slug}`, SITE.url).toString() : undefined;
+const hasAmazonLinks = /amazon\.com|link\.amazon|amzn\.to/.test(entry.body ?? "");
+const wordCount = (entry.body ?? "").split(/\s+/).filter(Boolean).length;
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.date,
+    dateModified: post.updated || post.date,
+    image: thumbnailUrl ? [thumbnailUrl] : undefined,
+    author: author ? { "@type": "Person", name: author.name, url: authorUrl } : undefined,
+    publisher: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
+    articleSection: category?.name,
+    keywords: post.tags.join(", ") || undefined,
+    wordCount,
+    inLanguage: "en-US",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { name: "Home", url: `${SITE.url}/` },
+      { name: "Archive", url: `${SITE.url}/blog` },
+      ...(category ? [{ name: category.name, url: `${SITE.url}/categories/${category.slug}` }] : []),
+      { name: post.title, url: canonicalUrl },
+    ].map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
+    })),
+  },
+];
 ---
 
 <BaseLayout
@@ -72,6 +97,9 @@ const jsonLd = {
   ogType="article"
   ogImage={socialImage?.src}
   jsonLd={jsonLd}
+  publishedTime={post.date}
+  modifiedTime={post.updated || post.date}
+  section={category?.name}
   flushFooter
 >
   <div class="fixed left-0 right-0 top-0 z-50 h-0.5 bg-transparent">
@@ -88,7 +116,7 @@ const jsonLd = {
       ]}
     />
 
-    <header class="mx-auto mt-8 max-w-3xl text-center">
+    <header class="mx-auto mt-8 max-w-3xl">
       {
         category && (
           <a href={`/categories/${category.slug}`} class="text-xs font-medium uppercase tracking-[0.2em] text-primary hover:underline">
@@ -96,11 +124,11 @@ const jsonLd = {
           </a>
         )
       }
-      <h1 class="mt-4 font-serif text-4xl font-semibold leading-[1.1] sm:text-5xl">
+      <h1 class="mt-4 font-serif text-4xl font-semibold leading-[1.08] tracking-tight text-balance sm:text-5xl">
         {post.title}
       </h1>
-      <p class="mx-auto mt-5 max-w-2xl text-lg text-muted-foreground">{post.excerpt}</p>
-      <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
+      <p class="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">{post.excerpt}</p>
+      <div class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
         {
           author && (
             <a href={`/authors/${author.slug}`} class="flex items-center gap-2 hover:text-foreground">
@@ -165,8 +193,28 @@ const jsonLd = {
 
     <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_220px]">
       <div class="mx-auto w-full min-w-0 max-w-2xl">
+        {post.affiliateDisclosure && <AffiliateDisclosure amazon={hasAmazonLinks} />}
+
+        {
+          toc.length > 2 && (
+            <details class="toc-mobile mb-8 rounded-lg border border-border bg-muted/50 px-4 py-3 lg:hidden">
+              <summary class="cursor-pointer text-sm font-medium">In this guide</summary>
+              <ol class="mt-3 space-y-2 text-sm">
+                {toc
+                  .filter((item) => item.level === 2)
+                  .map((item) => (
+                    <li>
+                      <a href={`#${item.id}`} class="text-muted-foreground hover:text-primary">
+                        {item.text}
+                      </a>
+                    </li>
+                  ))}
+              </ol>
+            </details>
+          )
+        }
+
         <div class="prose-article">
-          {post.affiliateDisclosure && <AffiliateDisclosure />}
           <Content />
         </div>
 
@@ -177,7 +225,7 @@ const jsonLd = {
               const item = getTag(tag);
               return (
                 <a href={`/tags/${tag}`} class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary">
-                  #{item?.name ?? tag}
+                  #{item.name}
                 </a>
               );
             })
@@ -219,12 +267,6 @@ const jsonLd = {
             )
           }
         </nav>
-
-        <div class="mt-12 rounded-md border border-dashed border-border p-8 text-center">
-          <Icon name="message" class="mx-auto h-5 w-5 text-muted-foreground" />
-          <div class="mt-2 font-serif text-lg">Comments</div>
-          <p class="mt-1 text-sm text-muted-foreground">Hook this up to your favourite commenting platform &mdash; Giscus, Disqus, or your own.</p>
-        </div>
       </div>
 
       <aside class="hidden lg:block">

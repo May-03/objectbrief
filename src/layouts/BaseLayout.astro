@@ -2,16 +2,20 @@
 import "../styles.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import { SITE, imageSrc } from "../lib/blog-data.js";
+import { SITE, imageSrc, fitDescription } from "../lib/blog-data.js";
 
 const {
-  title = `${SITE.name} - Sourcing intelligence for product buyers`,
+  title = `${SITE.name}: ${SITE.tagline}`,
   description = SITE.description,
   canonical,
   ogType = "website",
   ogImage,
   jsonLd,
   flushFooter = false,
+  noindex = false,
+  publishedTime,
+  modifiedTime,
+  section,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString() || SITE.url;
@@ -26,7 +30,9 @@ const absoluteUrl = (value) => {
   }
 };
 const canonicalUrl = absoluteUrl(canonical || Astro.url.pathname);
-const ogImageUrl = absoluteUrl(ogImage);
+const ogImageUrl = absoluteUrl(ogImage || SITE.defaultOgImage);
+const metaDescription = fitDescription(description);
+const structuredData = (Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : []).filter(Boolean);
 ---
 
 <!doctype html>
@@ -35,19 +41,30 @@ const ogImageUrl = absoluteUrl(ogImage);
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <meta name="author" content={SITE.name} />
+    <meta
+      name="robots"
+      content={noindex ? "noindex,follow" : "index,follow,max-image-preview:large,max-snippet:-1"}
+    />
+    <meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161a17" media="(prefers-color-scheme: dark)" />
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="en_US" />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    {section && <meta property="article:section" content={section} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:description" content={metaDescription} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} feed`} href="/rss.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link
       rel="preload"
@@ -75,9 +92,9 @@ const ogImageUrl = absoluteUrl(ogImage);
       gtag('config', 'G-2Z6CMQX6R2');
     </script>
     {
-      jsonLd && (
-        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-      )
+      structuredData.map((entry) => (
+        <script type="application/ld+json" set:html={JSON.stringify(entry)} />
+      ))
     }
     <script is:inline>
       (function () {
