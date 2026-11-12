@@ -1,0 +1,134 @@
+---
+title: "24/40 vs 24/29 vs 29/32: Reading Standard Taper Joint Sizes and Matching US and ISO Glassware"
+excerpt: "A condenser arrives marked 24/29 and the flask on the shelf is 24/40. In most cases they mate, with less ground contact than a matched pair. Here is what the two numbers mean, which US and ISO sizes share a seat, and where the published advice runs out."
+seoTitle: "Standard Taper Joints: 24/40, 24/29, 29/32 and What Fits"
+seoDescription: "How to read a standard taper joint marking, the four length series in ASTM E676, which large-end diameters mate across US and ISO glassware, what joint goes on which flask size, rotary evaporator vapor ducts, grease versus PTFE sleeves versus clips, and what the standards say now."
+date: 2026-11-14
+category: "guides"
+tags: ["materials", "comparisons"]
+author: "lena-schmidt"
+thumbnail: ./cover.jpg
+thumbnailAlt: "Glass ground joint on a laboratory glass tube"
+featured: false
+affiliateDisclosure: true
+---
+import AffiliateProductCard from "../../../components/affiliate/ProductRecommendation.astro";
+
+A reflux condenser arrives, the box says 24/29, and the flask on the shelf says 24/40. Do they fit? In most cases yes, and the reason is a single fact about how the two numbers are built. It can still go wrong, because the first number is a rounded name and the series differ in length.
+
+Below: how to read the size, which US and ISO sizes share a seat, what catalogues pair with which flasks, how to find the joint your rotary evaporator needs, and where sellers disagree about sleeves and clips. My own rules are marked as such.
+
+## What the two numbers mean
+
+A standard taper joint carries two numbers separated by a slash. The first is the diameter, in millimetres, at the wide end of the ground zone. The second is the length of the ground zone, also in millimetres. A 14/20 joint is about 14 mm across at the top and 20 mm long. Educational chemistry references and the glass makers say the same thing, and the national standard that fixed the pattern in the United States did too [1][2].
+
+The taper itself is the constant. Both the US commercial standard and the ISO standard call for a diameter change of 1 mm for every 10 mm of length. The 1936 US commercial standard puts the tolerance at ±0.006 mm per centimetre of length, and the ASTM specification that took over from it keeps the same figure [1][3]. Because the taper never changes, the narrow end can be calculated from the other two numbers: subtract one tenth of the length from the large diameter. For 24/40 that is 24.0 − 4.0 = 20.0 mm, which matches the standard's table. For 29/32 it is 29.2 − 3.2 = 26.0 mm, also matching.
+
+One trap is the label. The first number is a rounded name, not a measurement. The tables give 14/20 a large-end diameter of 14.5 mm, 19/22 gets 18.8 mm, 24/40 gets 24.0 mm, and 29/32 and 29/42 get 29.2 mm [1][3][4]. If you measure a socket with calipers and read 29.2 mm, you have a 29, not a 30.
+
+## The four length series
+
+ASTM E676 organises its tables into four series: full-length, medium-length, short-length and international-length, the last being the ISO "K-6" grindings [3]. The series differ only in how long the ground zone is for a given diameter. The same diameter appears in several series, and that repetition is what creates the confusion at the stockroom shelf.
+
+The sizes below are the ones that appear most often in catalogues. Large-end diameters and lengths come from the ASTM tables as reproduced by a university technical sheet and by a glassware maker; the narrow-end column computed from the 1:10 taper.
+
+|Size|Large end (mm)|Length (mm)|Narrow end (mm)|Series|
+|---|---|---|---|---|
+|14/20|14.5|20|12.5|US medium|
+|14/23|14.5|23|12.2|ISO|
+|14/35|14.5|35|11.0|US full|
+|19/22|18.8|22|16.6|US medium|
+|19/26|18.8|26|16.2|ISO|
+|19/38|18.8|38|15.0|US full|
+|24/25|24.0|25|21.5|US medium|
+|24/29|24.0|29|21.1|ISO|
+|24/40|24.0|40|20.0|US full|
+|29/26|29.2|26|26.6|US medium|
+|29/32|29.2|32|26.0|ISO|
+|29/42|29.2|42|25.0|US full|
+
+Which of these you will meet depends on where the lab is. A widely used encyclopedia summary says US laboratories mostly use 14/20, 19/22, 24/40 and, to a lesser extent, 29/42, with 24/40 the most common, while ISO sizes such as 14/23, 19/26 and 24/29 dominate elsewhere, with 24/29 the most common [5]. A university sheet calls 14/20 and 24/40 the most common in its own building [2]. Treat both as tendencies.
+
+## What mates with what
+
+Look at the table again and group the rows by large-end diameter. 24/25, 24/29 and 24/40 all have a 24.0 mm wide end. 29/26, 29/32 and 29/42 all have 29.2 mm. Because the taper is the same, any inner joint with a given large diameter has the same cone angle as any outer joint with that diameter. Two independent university and reference sources state the consequence directly: joints with the same first number fit together regardless of length, provided the surrounding glassware does not get in the way [2][6]. The standard worked example is a 14/35 condenser joint going into a 14/20 flask socket, where the extra 15 mm of ground zone sticks out the bottom of the neck.
+
+Applying that to the opening problem: a 24/29 inner joint goes into a 24/40 socket, with less ground contact. Going the other way, a 24/40 inner joint in a 24/29 socket will protrude 11 mm below the neck, which can foul a stir bar, a thermometer tip or a bump trap further down.
+
+Two cautions. The first is that one of the reference pages says its size lists apply to US glassware only [6]. That is a statement about the sizes it lists, and it conflicts with the diameter-based rule the same page gives. The standards tables resolve it for the large-end dimension: the ISO sizes have the same 14.5, 18.8, 24.0 and 29.2 mm figures as their US neighbours [1][3][4]. The second caution is that the tolerance on the ground length is generous. The ASTM table notes in the available extract appear to allow ±1.5 mm on length and 0.15 mm on the large-end diameter [3]. A mixed pair can therefore seat a millimetre or two differently from the nominal calculation.
+
+My rule, which is judgment and not published guidance: mixed US/ISO pairs are fine for a reflux or distillation set-up that runs at atmospheric pressure and is clipped. For vacuum work below a few millibar, or for anything you will leak-check and then trust, keep both halves in the same series or use a manufacturer's adapter. Adapters between different joint sizes are standardised in Germany by DIN 12257 [7], and glass makers list reducing and expanding adapters between sizes in their catalogues.
+
+## Which joint goes on which flask
+
+There is no standard that says a 250 mL flask has a particular joint. Makers offer several. The listings below come from distributor catalogues; they show what exists, not a rule.
+
+A distributor listing for Kimble Kimax single-neck round-bottom flasks shows 14/20 on 100 mL and 250 mL flasks, 19/22 on 100 to 500 mL flasks, and 24/40 on the 200 mL to 3000 mL rows that could be read. A Kontes listing shows 14/20 from 5 to 500 mL, 19/22 from 10 to 500 mL, 24/40 from 50 mL to 5 L, and 29/42 on 100 mL and 250 mL. Across the two, a 250 mL flask exists in 14/20, 19/22, 24/40 and 29/42.
+
+Here is how to choose, again as judgment rather than a published rule. Use the smallest joint that gives you comfortable access, and standardise. A bench with 14/20 flasks, 14/20 adapters and 14/20 clips costs less and wastes fewer evenings than one with three joint sizes. Under 100 mL that usually means 14/20 or 19/22; for a litre of solvent most labs choose 24/40 or 24/29.
+
+## Rotary evaporators: read the vapor duct first
+
+A rotary evaporator is where the 24/40 versus 29/32 question bites hardest, because the flask joint is set by the vapor duct, not by your preference.
+
+Büchi's glassware catalogue offers evaporating flasks in 29/32, 24/40, 24/29 and 29/42 at 50 mL, and pear-shaped flasks from 500 mL to 2000 mL in 29/32 and 24/40. Fisher's Büchi vapor duct listing shows two joint sizes at the flask end, 24/40 and 29/32, depending on which glass assembly the evaporator has, and it names the assembly letters that go with each. Heidolph Hei-VAP flasks from 100 mL to 5000 mL are offered in either NS 29/32 or NS 24/40.
+
+The practical conclusion is simple. Do not assume the joint from the brand. Look at the vapor duct, or at the flask that came with the machine, and read the joint marking. If the markings have worn off, measure the large end of the duct with calipers: roughly 24.0 mm means a 24/40 or 24/29, and roughly 29.2 mm means a 29/32 or 29/42.
+
+Bump traps add one more joint. A Chemglass description says its rotary evaporator bump traps have a 24/40 outer joint on top and a lower inner joint in one of several listed sizes. A reseller listing shows 24/40 and 29/42 outer joints with 14/20, 19/22 and 24/40 inner joints. A trap whose top matches the duct and whose bottom matches the flask is the pair you need. For the failure the trap protects against, a separate guide covers rotary evaporator bumping, and if the system will not pull down, the vacuum troubleshooting guide covers leaks at joints.
+
+## Grease, sleeves and clips: where sources disagree
+
+A taper joint seals by metal-hard glass pressed against glass. Left dry, it can seize. Three remedies are in common use, and the sources do not fully agree.
+
+Grease. A chemistry reference page says simple organic work without heating generally does not need grease, but that grease is advisable if you heat, need to exclude air or water, or want to avoid seizure. It suggests silicone grease for routine work and a hydrocarbon vacuum grease for high vacuum, applied sparingly to the upper part of the inner joint, and warns that grease slowly dissolves into a long reaction [6]. A glassware maker's note makes the same point from the other side: grease can dissolve in your solvent or creep out of the joint, bringing contamination, and a greased joint can still freeze [8].
+
+PTFE sleeves. These are thin tapered sleeves that sit between cone and socket. The sellers' claims vary. One brand's sleeves are described as fit for grease-free high-vacuum seals, with a working range of −100 to +260 °C. Another brand's sleeves, 0.2 mm thick, are rated −100 to +250 °C and sold as sufficient to make a vacuum-tight joint without lubricant. A third supplier describes its sleeves as a replacement for lubricant for average laboratory use, not intended for high vacuum unless cemented to the glass. A maker of reactors warns that some sleeves may stop you from reaching the vacuum level you want [8]. The temperature ceilings differ by about 10 °C, but the vacuum claims run from high vacuum to not for high vacuum. Check the datasheet for the specific sleeve and test the assembled system.
+
+Clips. Plastic Keck-style clips snap over the joint and are sized to the joint diameter, so a lab with 14/20, 19/22 and 24/40 glassware needs three sizes. The reference page says plastic clips are unsuitable above about 130 °C, and prefers a plastic clip to springs or rubber bands where pressure could build, since a clip yields rather than firing the parts back together [6]. That 130 °C figure comes from one page and it could not be confirmed against a clip maker's datasheet, so read the rating on your own clips.
+
+Stuck joints. Seizure is usually the result of too little lubricant or material trapped between the halves. The glassware maker cited favours prevention, such as joints with a screw cap and loosening ring [8]. No authoritative procedure was found for freeing a frozen joint, and stressed glass breaks, so ask a glassblower rather than improvising with heat.
+
+## Where to buy the clips
+
+The clips described above are sold by joint size, and this is the listing the section refers to: plastic Keck-style clips in the standard taper sizes, sold in small quantities.
+
+<AffiliateProductCard
+  image="/images/products/ali-1601712018815.jpg"
+  imageAlt="Coloured plastic Keck-style joint clips for standard taper glassware"
+  title="Keck-style plastic joint clips for standard taper joints"
+  label="Alibaba sourcing candidate"
+  description="Plastic clips that snap over a taper joint and hold the two halves together, sold by joint size. A small minimum order makes them a reasonable way to cover the 14/20, 19/22 and 24/40 joints a mixed set of glassware uses."
+  features={["Keck-style", "By joint size", "Small minimum"]}
+  moq="From 10 pieces"
+  affiliateUrl="https://offer.alibaba.com/cps/qecacded?bm=cps&src=saf&productId=1601712018815"
+  buttonText="Check Alibaba listing"
+/>
+
+## What the standards say now, and what to ask a supplier
+
+The US commercial standard CS 21 dates from the 1930s [1]. ASTM E676 took over its dimensions and added short and international series [3]. ISO 383:1976 sets four series, adopted in India as IS 5165 [4][9]; Germany publishes the dimensions as DIN 12242 [7].
+
+One catch on status. The public extract of the 2007 reapproval of ASTM E676 carries a notice that the document has been superseded or withdrawn [3]. The current status could not be determined from that extract. If a purchasing specification cites E676, check with ASTM which version applies before copying the number.
+
+Earlier editions of E676 also cap the ground-surface roughness at 1 µm and describe a manometer leak test [3], which matter under vacuum.
+
+When you request a quote, give the size marking exactly as printed and the series if length matters. DWK says its Wheaton line follows ASTM E676 and its Quickfit and Duran lines follow ISO 383 and DIN 12242, and makers state ASTM E438 type 1 class A borosilicate [10][11].
+
+## What this guide could not check
+
+The ISO 383 tables were not read directly; ANSI's store shows only a preview of the 1976 edition, so the ISO dimensions here come from the ASTM table extract, a university technical sheet and the Indian national adoption. No clip maker's or sleeve maker's datasheet in hand; the temperature and vacuum claims above are the sellers' own. The flask-and-joint pairings are catalogue listings from a few distributors, not an inventory of every product. Before ordering a joint for a vacuum system, measure the existing joint, read the datasheet, and plan to leak-test the assembled set-up.
+
+## References
+
+1. National Bureau of Standards, Commercial Standard CS21-36: Interchangeable Ground-Glass Joints, Stopcocks and Stoppers (1936), and CS21-39 (1939). NIST digital collections, nvlpubs.nist.gov.
+2. Iowa State University, Department of Chemistry, glassblowing shop technical sheet "Glass connections" (2020), listing ground standard taper joint dimensions for the ASTM and international series.
+3. ASTM E676-02(2007), Standard Specification for Interchangeable Taper-Ground Joints. ASTM International (notice of supersession or withdrawal on the public extract).
+4. Bureau of Indian Standards, IS 5165:2017 / ISO 383:1976, Laboratory glassware — Interchangeable conical ground joints.
+5. "Ground glass joint," Wikipedia, summary of ASTM E676 and ISO 383 size series and common sizes.
+6. Interactive Learning Paradigms Inc. (ILPI), "Ground glass joints," inorganic chemistry glassware pages.
+7. DIN 12242 (conical ground joints) and DIN 12257 (adapters), as described by the RCT trade magazine, "Standard Ground Joints in Chemistry."
+8. Radleys, "How to separate stuck glass joints" (FAQ-based blog).
+9. ISO 383:1976, Laboratory glassware — Interchangeable conical ground joints, preview pages, International Organization for Standardization.
+10. DWK Life Sciences, jointed glassware technical information (ISO 383 and DIN 12242; ASTM E676 for Wheaton).
+11. ASTM E438, Standard Specification for Glasses in Laboratory Apparatus. ASTM International.
