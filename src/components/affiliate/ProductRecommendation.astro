@@ -39,8 +39,10 @@ const facts = [
   moq ? `MOQ: ${moq}` : null,
 ].filter((fact): fact is string => Boolean(fact));
 
-// Fill the image column edge to edge with a centered crop, matching the
-// equipvia card treatment (background-size: cover).
+// Product photos are square, so the image is kept square inside the column
+// instead of being stretched down its full height: cover-filling a tall column
+// zoomed the photo until the product was cut off at the sides, and containing
+// it in the same box shrank the product to a thumbnail with bands of white.
 const imageFit = "product-image object-cover";
 
 // The image is `w-full` with an automatic height, so the browser works out the
@@ -51,11 +53,11 @@ const imageFit = "product-image object-cover";
 const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 700];
 ---
 
-<div class="affiliate-product-card my-8 overflow-hidden rounded-xl border border-border bg-popover shadow-sm transition-shadow hover:shadow-md">
+<div class="affiliate-product-card my-6 overflow-hidden rounded-xl border border-border bg-popover shadow-sm transition-shadow hover:shadow-md">
   <div class="flex flex-col sm:flex-row">
     {
       image && (
-        <div class="relative flex shrink-0 items-center justify-center overflow-hidden bg-white sm:w-64">
+        <div class="relative flex shrink-0 items-center justify-center overflow-hidden bg-white sm:w-52">
           <img
             src={image}
             alt={imageAlt}
@@ -67,20 +69,20 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
         </div>
       )
     }
-    <div class="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-      <h3 class="text-lg font-semibold leading-snug text-foreground sm:text-xl">{title}</h3>
+    <div class="flex flex-1 flex-col gap-2.5 p-4 sm:p-5">
+      <h3 class="text-[17px] font-semibold leading-snug text-foreground sm:text-lg">{title}</h3>
 
       {paragraphs.length > 0 && (
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-1.5">
           {paragraphs.map((paragraph) => (
-            <p class="text-[15px] leading-6 text-muted-foreground">{paragraph}</p>
+            <p class="text-[14px] leading-[1.55] text-muted-foreground">{paragraph}</p>
           ))}
         </div>
       )}
 
       {
         facts.length > 0 && (
-          <ul class="grid gap-1.5 border-t border-border pt-3 text-[15px] leading-6 text-muted-foreground">
+          <ul class="grid gap-1 border-t border-border pt-2.5 text-[14px] leading-[1.5] text-muted-foreground">
             {facts.map((fact) => (
               <li class="flex items-start gap-2.5">
                 <span
@@ -100,7 +102,7 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
           target="_blank"
           rel="sponsored noopener noreferrer"
           data-placement="inline-card"
-          class="affiliate-cta inline-flex min-h-11 items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold leading-5 text-primary-foreground no-underline transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
+          class="affiliate-cta inline-flex min-h-10 items-center gap-2 rounded-lg bg-primary px-4 py-2 text-[13px] font-semibold leading-5 text-primary-foreground no-underline transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-none"
         >
           {buttonText}
           <svg
@@ -113,7 +115,7 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"
-            class="h-4 w-4"
+            class="h-3.5 w-3.5"
             aria-hidden="true"
           >
             <path d="M5 12h14" />
@@ -128,15 +130,15 @@ const [imageWidth, imageHeight] = (image && PRODUCT_IMAGE_SIZE[image]) || [700, 
 <style>
   .product-image {
     width: 100%;
-    height: 12rem;
+    height: 10rem;
     aspect-ratio: auto;
   }
   @media (min-width: 640px) {
     .product-image {
-      position: absolute;
-      inset: 0;
-      height: 100%;
+      position: static;
       width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
     }
   }
 </style>
