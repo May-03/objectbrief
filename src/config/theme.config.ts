@@ -17,9 +17,10 @@ export const SITE = {
 };
 
 export const NAVIGATION = [
+  { to: "/categories/kitchen-bath", label: "Kitchen & Bath" },
+  { to: "/categories/laundry-fabric", label: "Laundry" },
+  { to: "/categories/home-floors", label: "Home" },
   { to: "/categories/packaging", label: "Packaging" },
-  { to: "/categories/guides", label: "Guides" },
-  { to: "/categories/comparisons", label: "Comparisons" },
   { to: "/blog", label: "Archive" },
   { to: "/about", label: "About" },
 ];
@@ -78,19 +79,34 @@ export const authors = [
 
 export const categories = [
   {
+    slug: "kitchen-bath",
+    name: "Kitchen & Bath",
+    blurb: "Aerators, drains, dishwasher racks and the small kitchen and bathroom parts that keep failing: fit, fixes and what to buy.",
+  },
+  {
+    slug: "laundry-fabric",
+    name: "Laundry & Fabric Care",
+    blurb: "Washing, drying and repairing wool, cashmere, bedding and upholstery without shrinking or stretching them.",
+  },
+  {
+    slug: "home-floors",
+    name: "Home & Floors",
+    blurb: "Chair pads, rug grippers, door sweeps and screens: measure once and stop things sliding, peeling or popping out.",
+  },
+  {
+    slug: "cleaning-pets",
+    name: "Cleaning & Pets",
+    blurb: "Pet hair, lint and everyday cleanup: tools that actually work and how to use them without damage.",
+  },
+  {
+    slug: "garden",
+    name: "Garden & Irrigation",
+    blurb: "Drip irrigation and fertigation troubleshooting: clogged emitters, pressure regulators and stock tanks.",
+  },
+  {
     slug: "packaging",
-    name: "Packaging",
-    blurb: "Bottles, seals, labels and small-batch equipment: sizes, fit and what to test first.",
-  },
-  {
-    slug: "guides",
-    name: "Guides",
-    blurb: "Fixes and fit guides for the small things around the home that keep going wrong.",
-  },
-  {
-    slug: "comparisons",
-    name: "Comparisons",
-    blurb: "Side-by-side picks with the numbers that matter, so you can choose once.",
+    name: "Small-Batch Packaging",
+    blurb: "Shrink bands, induction seals, labels, cappers and fillers for small makers: sizes, fit and what to test first.",
   },
 ];
 

@@ -1,7 +1,10 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
-  "redirects": [],
+  "redirects": [
+    { "source": "/categories/guides", "destination": "/blog", "permanent": true },
+    { "source": "/categories/comparisons", "destination": "/tags/comparisons", "permanent": true }
+  ],
   "headers": [
     {
       "source": "/(.*)",

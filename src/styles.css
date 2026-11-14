@@ -29,32 +29,32 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
-  --font-serif: var(--font-sans);
+  --font-serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, "Iowan Old Style", "Times New Roman", serif;
   --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
 }
 
 :root {
-  --radius: 0.25rem;
-  --background: oklch(0.975 0.008 80);
-  --foreground: oklch(0.25 0.02 50);
-  --card: oklch(0.992 0.005 85);
-  --card-foreground: oklch(0.25 0.02 50);
+  --radius: 0.5rem;
+  --background: oklch(0.985 0.006 95);
+  --foreground: oklch(0.2 0.012 60);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.012 60);
   --popover: oklch(0.992 0.005 85);
   --popover-foreground: oklch(0.25 0.02 50);
-  --primary: oklch(0.45 0.13 25);
-  --primary-foreground: oklch(0.99 0.005 85);
+  --primary: oklch(0.43 0.085 165);
+  --primary-foreground: oklch(0.99 0.005 95);
   --secondary: oklch(0.945 0.012 80);
   --secondary-foreground: oklch(0.27 0.02 50);
   --muted: oklch(0.945 0.012 80);
-  --muted-foreground: oklch(0.5 0.025 55);
+  --muted-foreground: oklch(0.47 0.02 60);
   --accent: oklch(0.925 0.018 78);
   --accent-foreground: oklch(0.27 0.02 50);
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --border: oklch(0.875 0.016 78);
+  --border: oklch(0.9 0.01 85);
   --card-border: oklch(0.62 0.03 65);
   --input: oklch(0.875 0.016 78);
-  --ring: oklch(0.45 0.13 25);
+  --ring: oklch(0.43 0.085 165);
   --amber: oklch(0.74 0.11 75);
   --amber-soft: oklch(0.955 0.035 82);
   --amber-ink: oklch(0.36 0.06 60);
@@ -67,8 +67,8 @@
   --card-foreground: oklch(0.94 0.01 85);
   --popover: oklch(0.23 0.012 55);
   --popover-foreground: oklch(0.94 0.01 85);
-  --primary: oklch(0.76 0.11 35);
-  --primary-foreground: oklch(0.17 0.02 40);
+  --primary: oklch(0.78 0.1 165);
+  --primary-foreground: oklch(0.17 0.02 165);
   --secondary: oklch(0.26 0.012 55);
   --secondary-foreground: oklch(0.94 0.01 85);
   --muted: oklch(0.26 0.012 55);
@@ -80,7 +80,7 @@
   --border: oklch(0.33 0.014 60);
   --card-border: oklch(0.47 0.02 65);
   --input: oklch(0.33 0.014 60);
-  --ring: oklch(0.76 0.11 35);
+  --ring: oklch(0.78 0.1 165);
   --amber: oklch(0.79 0.11 80);
   --amber-soft: oklch(0.29 0.03 78);
   --amber-ink: oklch(0.89 0.07 85);
@@ -769,4 +769,72 @@
   padding: 1rem 1.25rem;
   border-radius: 0 8px 8px 0;
   margin: 1.5rem 0;
+}
+
+/* ---- Editorial refresh: serif display type, category colours, section rules ---- */
+@layer components {
+  :root {
+    --cat-kitchen-bath: oklch(0.6 0.11 230);
+    --cat-laundry-fabric: oklch(0.6 0.12 330);
+    --cat-home-floors: oklch(0.62 0.11 60);
+    --cat-cleaning-pets: oklch(0.65 0.13 135);
+    --cat-garden: oklch(0.55 0.11 160);
+    --cat-packaging: oklch(0.5 0.08 260);
+  }
+
+  h1.font-serif, h2.font-serif, h3.font-serif {
+    letter-spacing: -0.012em;
+    font-weight: 700;
+  }
+
+  header.sticky {
+    border-top: 3px solid var(--color-primary) !important;
+    border-top-color: var(--color-primary) !important;
+  }
+
+  /* Short heavy rule above home section headings (Wirecutter style). */
+  h2.font-serif.text-3xl {
+    position: relative;
+    padding-top: 0.9rem;
+  }
+  h2.font-serif.text-3xl::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.75rem;
+    height: 4px;
+    background: var(--color-foreground);
+  }
+
+  .category-tile {
+    position: relative;
+    overflow: hidden;
+    border-top-width: 4px !important;
+    border-top-color: var(--tile-color, var(--color-primary)) !important;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .category-tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -14px color-mix(in oklab, var(--color-foreground) 45%, transparent);
+  }
+  .category-tile[href$="/kitchen-bath"] { --tile-color: var(--cat-kitchen-bath); }
+  .category-tile[href$="/laundry-fabric"] { --tile-color: var(--cat-laundry-fabric); }
+  .category-tile[href$="/home-floors"] { --tile-color: var(--cat-home-floors); }
+  .category-tile[href$="/cleaning-pets"] { --tile-color: var(--cat-cleaning-pets); }
+  .category-tile[href$="/garden"] { --tile-color: var(--cat-garden); }
+  .category-tile[href$="/packaging"] { --tile-color: var(--cat-packaging); }
+
+  /* Card images: soft rounding and gentle zoom on hover. */
+  article img, a img {
+    border-radius: calc(var(--radius) - 2px);
+  }
+  a:hover img {
+    filter: saturate(1.06);
+  }
+
+  .home-search {
+    border-radius: 999px;
+    background: var(--color-card);
+  }
 }
