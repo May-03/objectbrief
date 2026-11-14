@@ -39,11 +39,15 @@ const BLURB_LIMIT = 125;
 const HARD_LIMIT = 150;
 function shorten(text: string): string {
   if (text.length <= BLURB_LIMIT) return text;
-  const sentences = text.match(/[^.!?]+[.!?]+[")\]]?/g) ?? [text];
+  // Split only where a sentence really ends: a capital starts the next one.
+  // Splitting on every period broke decimals ("...outside diameter. A 31.5 mm")
+  // into a fragment that ended the blurb at "A 31.".
+  const sentences = text.split(/(?<=[.!?])\s+(?=[A-Z"(\[])/).map((x) => x.trim()).filter(Boolean);
   let kept = "";
   for (const sentence of sentences) {
-    if (kept && (kept + sentence).length > BLURB_LIMIT) break;
-    kept += sentence;
+    const next = kept ? kept + " " + sentence : sentence;
+    if (kept && next.length > BLURB_LIMIT) break;
+    kept = next;
   }
   kept = kept.trim();
   if (kept.length === 0) kept = text;
