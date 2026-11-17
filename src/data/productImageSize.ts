@@ -30,6 +30,8 @@ export const PRODUCT_IMAGE_SIZE: Record<string, [number, number]> = {
   "/images/products/ali-1600387079737.jpg": [700, 700],
   "/images/products/ali-1600409855722.jpg": [700, 700],
   "/images/products/ali-1600428497182.jpg": [700, 700],
+  "/images/products/ali-1600439728097.jpg": [700, 700],
+  "/images/products/ali-1600459287001.jpg": [700, 700],
   "/images/products/ali-1600472846004.jpg": [700, 700],
   "/images/products/ali-1600507980734.jpg": [700, 700],
   "/images/products/ali-1600526915134.jpg": [700, 700],
