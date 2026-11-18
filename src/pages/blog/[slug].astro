@@ -147,14 +147,14 @@ const jsonLd = [
 
     {
       post.thumbnail && (
-        <figure class="mx-auto mt-10 max-w-4xl">
+        <figure class="mx-auto mt-10 max-w-3xl">
           <div class="overflow-hidden rounded-md bg-muted">
             <Image
               src={post.thumbnail}
               alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
               class="w-full"
-              widths={[640, 960, 1280, 1600]}
-              sizes="(min-width: 1024px) 896px, calc(100vw - 40px)"
+              widths={[640, 768, 1024, 1600]}
+              sizes="(min-width: 1024px) 768px, calc(100vw - 40px)"
               format="webp"
               quality={78}
             />
