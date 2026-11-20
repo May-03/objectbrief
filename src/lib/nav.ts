@@ -21,7 +21,6 @@ const headerTopicLinks: NavLink[] = [
     const c = categories.find((x) => x.slug === slug)!;
     return { to: `/categories/${slug}`, label: SHORT_LABELS[slug] ?? c.name };
   }),
-  { to: "/blog", label: "All topics" },
 ];
 
 /** Top-level nav with menu placeholders resolved to their child links. */
