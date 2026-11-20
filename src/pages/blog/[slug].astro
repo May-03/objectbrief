@@ -27,6 +27,7 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const post = normalizePost(entry);
+const { compactCover } = entry.data;
 const author = getAuthor(post.author);
 const category = getCategory(post.category);
 const { Content, headings } = await render(entry);
@@ -147,14 +148,14 @@ const jsonLd = [
 
     {
       post.thumbnail && (
-        <figure class="mx-auto mt-10 max-w-3xl">
+        <figure class:list={["mx-auto", compactCover ? "mt-6 article-cover-compact" : "mt-10 max-w-3xl"]}>
           <div class="overflow-hidden rounded-md bg-muted">
             <Image
               src={post.thumbnail}
               alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
               class="w-full"
-              widths={[640, 768, 1024, 1600]}
-              sizes="(min-width: 1024px) 768px, calc(100vw - 40px)"
+              widths={compactCover ? [360, 480, 960] : [640, 768, 1024, 1600]}
+              sizes={compactCover ? "(min-width: 520px) 480px, calc(100vw - 40px)" : "(min-width: 1024px) 768px, calc(100vw - 40px)"}
               format="webp"
               quality={78}
             />
@@ -191,7 +192,7 @@ const jsonLd = [
       )
     }
 
-    <div class="mt-12 grid gap-12 lg:grid-cols-[1fr_220px]">
+    <div class:list={["grid gap-12 lg:grid-cols-[1fr_220px]", compactCover ? "mt-8" : "mt-12"]}>
       <div class="mx-auto w-full min-w-0 max-w-2xl">
         {post.affiliateDisclosure && <AffiliateDisclosure amazon={hasAmazonLinks} />}
 

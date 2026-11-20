@@ -23,6 +23,7 @@ const blog = defineCollection({
       author: z.string(),
       thumbnail: image(),
       thumbnailAlt: z.string().default(""),
+      compactCover: z.boolean().default(false),
       imageCredit: z
         .object({
           caption: z.string().optional(),
