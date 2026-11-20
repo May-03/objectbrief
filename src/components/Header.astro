@@ -20,7 +20,7 @@ const iconClass =
       <span class="font-serif text-xl font-semibold tracking-tight">{SITE.name}</span>
     </a>
 
-    <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
+    <nav class="ml-auto mr-4 hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
       {
         navItems.map((item) => {
           if ("children" in item) {
@@ -31,7 +31,7 @@ const iconClass =
                   {item.label}
                   <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4"><path fill="currentColor" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z"/></svg>
                 </summary>
-                <ul class="absolute left-0 top-full z-50 mt-3 w-60 rounded-lg border border-border bg-background p-2 shadow-lg">
+                <ul class="absolute right-0 top-full z-50 mt-3 w-56 rounded-lg border border-border bg-background p-2 shadow-lg">
                   {item.children.map((c) => (
                     <li>
                       <a href={c.to} class={`block rounded-md px-3 py-2 text-sm hover:bg-muted hover:text-foreground ${isActive(c.to) ? "text-foreground" : "text-muted-foreground"}`} aria-current={isActive(c.to) ? "page" : undefined}>{c.label}</a>

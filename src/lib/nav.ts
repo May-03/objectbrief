@@ -9,14 +9,32 @@ export const topicLinks: NavLink[] = categories.map((c) => ({
   label: c.name,
 }));
 
+/** Categories shown in the header "Topics" menu (largest sections first);
+    the rest stay reachable from the footer and the archive. */
+const HEADER_TOPICS = ["packaging", "kitchen-bath", "laundry-fabric", "home-floors"];
+const SHORT_LABELS: Record<string, string> = {
+  packaging: "Packaging",
+  "laundry-fabric": "Laundry & Fabric",
+};
+const headerTopicLinks: NavLink[] = [
+  ...HEADER_TOPICS.map((slug) => {
+    const c = categories.find((x) => x.slug === slug)!;
+    return { to: `/categories/${slug}`, label: SHORT_LABELS[slug] ?? c.name };
+  }),
+  { to: "/blog", label: "All topics" },
+];
+
 /** Top-level nav with menu placeholders resolved to their child links. */
-export const navItems: NavItem[] = NAVIGATION.map((item) =>
-  "menu" in item && item.menu === "categories"
-    ? { label: item.label, children: topicLinks }
-    : (item as NavLink),
-);
+const resolve = (children: NavLink[]): NavItem[] =>
+  NAVIGATION.map((item) =>
+    "menu" in item && item.menu === "categories"
+      ? { label: item.label, children }
+      : (item as NavLink),
+  );
+
+export const navItems: NavItem[] = resolve(headerTopicLinks);
 
 /** Flat list of every nav destination (used by the footer). */
-export const flatNavLinks: NavLink[] = navItems.flatMap((item) =>
+export const flatNavLinks: NavLink[] = resolve(topicLinks).flatMap((item) =>
   "children" in item ? item.children : [item],
 );
