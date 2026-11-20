@@ -16,11 +16,11 @@ export const SITE = {
   language: "en",
 };
 
+/* Top-level navigation. An item with `menu: "categories"` renders as a
+   "Topics" dropdown listing every entry in `categories` below, so new
+   categories appear automatically without editing the nav. */
 export const NAVIGATION = [
-  { to: "/categories/kitchen-bath", label: "Kitchen & Bath" },
-  { to: "/categories/laundry-fabric", label: "Laundry" },
-  { to: "/categories/home-floors", label: "Home" },
-  { to: "/categories/packaging", label: "Packaging" },
+  { label: "Topics", menu: "categories" },
   { to: "/blog", label: "Archive" },
   { to: "/about", label: "About" },
 ];

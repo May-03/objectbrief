@@ -1,9 +1,10 @@
 ---
 import Icon from "./Icon.astro";
 import { SITE } from "../lib/blog-data.js";
-import { NAVIGATION } from "../config/theme.config.ts";
+import { navItems } from "../lib/nav.ts";
 
 const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+const isActive = (to) => (to === "/" ? current === "/" : current === to || current.startsWith(`${to}/`));
 const activeClass = "text-foreground";
 const inactiveClass = "text-muted-foreground transition-colors hover:text-foreground";
 const headerClass =
@@ -21,9 +22,26 @@ const iconClass =
 
     <nav class="hidden items-center gap-6 lg:flex" aria-label="Primary navigation">
       {
-        NAVIGATION.map((item) => {
-          const exact = item.to === "/";
-          const active = exact ? current === "/" : current.startsWith(item.to);
+        navItems.map((item) => {
+          if ("children" in item) {
+            const active = item.children.some((c) => isActive(c.to));
+            return (
+              <details class="nav-menu relative" data-nav-menu>
+                <summary class={`nav-link flex cursor-pointer list-none items-center gap-1 text-[15px] font-medium ${active ? activeClass : inactiveClass}`}>
+                  {item.label}
+                  <svg aria-hidden="true" viewBox="0 0 20 20" class="h-4 w-4"><path fill="currentColor" d="M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z"/></svg>
+                </summary>
+                <ul class="absolute left-0 top-full z-50 mt-3 w-60 rounded-lg border border-border bg-background p-2 shadow-lg">
+                  {item.children.map((c) => (
+                    <li>
+                      <a href={c.to} class={`block rounded-md px-3 py-2 text-sm hover:bg-muted hover:text-foreground ${isActive(c.to) ? "text-foreground" : "text-muted-foreground"}`} aria-current={isActive(c.to) ? "page" : undefined}>{c.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            );
+          }
+          const active = isActive(item.to);
           return (
             <a
               href={item.to}
@@ -86,9 +104,18 @@ const iconClass =
   <div id="mobile-menu" data-menu-panel class="border-t border-border/60 bg-background text-foreground lg:hidden" hidden>
     <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-3" aria-label="Mobile navigation">
       {
-        NAVIGATION.map((item) => {
-          const exact = item.to === "/";
-          const active = exact ? current === "/" : current.startsWith(item.to);
+        navItems.map((item) => {
+          if ("children" in item) {
+            return (
+              <div class="py-1">
+                <p class="px-2 pb-1 pt-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">{item.label}</p>
+                {item.children.map((c) => (
+                  <a href={c.to} class={`block rounded-md px-4 py-2 text-base hover:bg-muted hover:text-foreground ${isActive(c.to) ? "text-foreground" : "text-muted-foreground"}`} aria-current={isActive(c.to) ? "page" : undefined}>{c.label}</a>
+                ))}
+              </div>
+            );
+          }
+          const active = isActive(item.to);
           return (
             <a
               href={item.to}
@@ -143,8 +170,22 @@ const iconClass =
 
   menuToggle?.addEventListener("click", () => setMenu(menuPanel.hidden));
 
+  const navMenus = [...document.querySelectorAll("[data-nav-menu]")];
+
+  document.addEventListener("click", (event) => {
+    navMenus.forEach((menu) => {
+      if (menu.open && !menu.contains(event.target)) menu.open = false;
+    });
+  });
+
   document.addEventListener("keydown", (event) => {
     if (event.key !== "Escape") return;
+
+    navMenus.forEach((menu) => {
+      if (!menu.open) return;
+      menu.open = false;
+      menu.querySelector("summary")?.focus();
+    });
 
     if (!searchPanel.hidden) {
       setSearch(false);

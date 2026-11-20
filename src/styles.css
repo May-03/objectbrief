@@ -844,3 +844,4 @@
     background: var(--color-card);
   }
 }
+.nav-menu > summary::-webkit-details-marker{display:none}
