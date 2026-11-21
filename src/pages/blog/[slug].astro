@@ -148,8 +148,8 @@ const jsonLd = [
 
     {
       post.thumbnail && (
-        <figure class:list={[compactCover ? "mt-6 article-cover-compact" : "mt-10 max-w-2xl"]}>
-          <div class="overflow-hidden rounded-md bg-muted">
+        <figure class="mx-auto mt-10 w-full max-w-3xl">
+          <div class:list={["overflow-hidden rounded-md bg-muted", compactCover ? "mx-auto article-cover-compact" : "max-w-2xl"]}>
             <Image
               src={post.thumbnail}
               alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
