@@ -148,14 +148,14 @@ const jsonLd = [
 
     {
       post.thumbnail && (
-        <figure class:list={["mx-auto", compactCover ? "mt-6 article-cover-compact" : "mt-10 max-w-3xl"]}>
+        <figure class:list={["mx-auto", compactCover ? "mt-6 article-cover-compact" : "mt-10 max-w-2xl"]}>
           <div class="overflow-hidden rounded-md bg-muted">
             <Image
               src={post.thumbnail}
               alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
               class="w-full"
-              widths={compactCover ? [360, 480, 960] : [640, 768, 1024, 1600]}
-              sizes={compactCover ? "(min-width: 520px) 480px, calc(100vw - 40px)" : "(min-width: 1024px) 768px, calc(100vw - 40px)"}
+              widths={compactCover ? [360, 480, 960] : [640, 672, 1024, 1600]}
+              sizes={compactCover ? "(min-width: 520px) 480px, calc(100vw - 40px)" : "(min-width: 1024px) 672px, calc(100vw - 40px)"}
               format="webp"
               quality={78}
             />
