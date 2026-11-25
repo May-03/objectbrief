@@ -1,6 +1,10 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import vercel from "@astrojs/vercel";
+
+// Cloudflare Pages sets CF_PAGES=1 during builds. There the site is exported
+// as fully static HTML (no adapter); Vercel keeps the server build.
+const onCloudflare = !!process.env.CF_PAGES;
 import tailwindcss from "@tailwindcss/vite";
 
 const site =
@@ -48,7 +52,21 @@ function rehypeAffiliateLinks() {
 
 export default defineConfig({
   site,
-  integrations: [mdx()],
+  integrations: [
+    mdx(),
+    // Static export on Cloudflare: the newsletter API route needs a server,
+    // so it is prerendered (dropped) there; functions/api/subscribe.js serves it.
+    ...(onCloudflare
+      ? [{
+          name: "cf-static-routes",
+          hooks: {
+            "astro:route:setup": ({ route }) => {
+              if (route.component.endsWith("api/subscribe.ts")) route.prerender = true;
+            },
+          },
+        }]
+      : []),
+  ],
   markdown: {
     rehypePlugins: [rehypeAffiliateLinks],
   },
@@ -58,6 +76,5 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  output: "server",
-  adapter: vercel(),
+  ...(onCloudflare ? { output: "static" } : { output: "server", adapter: vercel() }),
 });
