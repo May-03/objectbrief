@@ -76,5 +76,10 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  ...(onCloudflare ? { output: "static" } : { output: "server", adapter: vercel() }),
+  // On Cloudflare Pages, emit slug.html instead of slug/index.html: Pages serves
+  // /blog/slug directly then, which is the form the canonical tags, the sitemap
+  // and every internal link already use. Directory-index pages stay index.html.
+  ...(onCloudflare
+    ? { output: "static", trailingSlash: "never", build: { format: "file" } }
+    : { output: "server", adapter: vercel() }),
 });

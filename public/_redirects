@@ -1,2 +1,14 @@
 /categories/guides /blog 301
 /categories/comparisons /tags/comparisons 301
+
+# Static export writes slug.html, so Cloudflare serves /blog/slug directly.
+# Keep the trailing-slash form (which Pages used before this change) working.
+/blog/:slug/ /blog/:slug 301
+/blog/ /blog 301
+/categories/:slug/ /categories/:slug 301
+/tags/:slug/ /tags/:slug 301
+/authors/:slug/ /authors/:slug 301
+/about/ /about 301
+/contact/ /contact 301
+/privacy/ /privacy 301
+/affiliate-disclosure/ /affiliate-disclosure 301
