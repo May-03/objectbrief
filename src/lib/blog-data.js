@@ -93,7 +93,11 @@ export const postsByTag = async (slug) =>
 export const postsByAuthor = async (slug) =>
   (await sortedPosts()).filter((post) => post.author === slug);
 export const sortedPosts = async () =>
-  [...(await posts())].sort((a, b) => (a.date < b.date ? 1 : -1));
+  // Newest first; same-day posts fall back to slug order so the archive does not
+  // reshuffle itself between builds.
+  [...(await posts())].sort(
+    (a, b) => new Date(b.date) - new Date(a.date) || a.slug.localeCompare(b.slug),
+  );
 export const featuredPost = async () => {
   const sorted = await sortedPosts();
   return sorted.find((post) => post.featured) ?? sorted[0];
