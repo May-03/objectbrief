@@ -292,6 +292,7 @@ export const PRODUCT_IMAGE_SIZE: Record<string, [number, number]> = {
   "/images/products/amz-B0CFGYFCYL.jpg": [700, 700],
   "/images/products/amz-B0CHQR1XR8.jpg": [700, 700],
   "/images/products/amz-B0CJ56M8D4.jpg": [700, 700],
+  "/images/products/amz-B0CMCXFNT1.jpg": [700, 700],
   "/images/products/amz-B0CMPHQSTM.jpg": [700, 700],
   "/images/products/amz-B0CMPKHDB9.jpg": [700, 700],
   "/images/products/amz-B0CQYDG33R.jpg": [700, 700],
